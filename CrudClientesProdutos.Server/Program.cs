@@ -1,11 +1,25 @@
+using Asp.Versioning.ApiExplorer;
+using CrudClientesProdutos.Server.Configurations;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddApiVersioning()
+    .AddMvc()
+    .AddApiExplorer(setup =>
+    {
+        setup.SubstituteApiVersionInUrl = true;
+    });
+
+builder.Services.AddInMemoryDbContext(builder.Configuration);
+
+builder.Services.AddRepositories();
+builder.Services.AddServices(builder.Configuration);
+
 builder.Services.AddSwaggerGen();
+builder.Services.ConfigureOptions<SwaggerConfiguration>();
 
 var app = builder.Build();
 
@@ -16,7 +30,14 @@ app.UseStaticFiles();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        var version = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+        foreach (var description in version.ApiVersionDescriptions)
+        {
+            options.SwaggerEndpoint($"/swagger/{description.ApiVersion}/swagger.json", $"API V{description.ApiVersion}");
+        }
+    });
 }
 
 app.UseHttpsRedirection();
