@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using CrudClientesProdutos.Application.Interfaces;
-using CrudClientesProdutos.Application.Services;
+﻿using CrudClientesProdutos.Application.Services.Client;
+using CrudClientesProdutos.Application.Services.Product;
+using CrudClientesProdutos.Domain.Products;
 
 namespace CrudClientesProdutos.Server.Configurations;
 

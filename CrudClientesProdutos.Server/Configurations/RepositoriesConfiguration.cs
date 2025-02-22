@@ -1,8 +1,6 @@
-﻿using CrudClientesProdutos.Domain.Interfaces;
-using CrudClientesProdutos.Domain.Interfaces.Repositories;
+﻿using CrudClientesProdutos.Domain.Clients;
+using CrudClientesProdutos.Domain.Products;
 using CrudClientesProdutos.InMemory.Repositories;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Reflection;
 
 namespace CrudClientesProdutos.Server.Configurations;
 

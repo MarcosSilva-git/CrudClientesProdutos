@@ -1,13 +1,11 @@
-﻿using CrudClientesProdutos.Domain.Entities;
-using CrudClientesProdutos.Domain.Interfaces.Repositories;
-using Microsoft.EntityFrameworkCore;
+﻿using CrudClientesProdutos.Domain.Products;
 
 namespace CrudClientesProdutos.InMemory.Repositories;
 
-public class ProductRepository(InMemoryDbContext inMemoryDbContext) : IProductRepository
+public class ProductRepository : RepositoryBase<ProductEntity>, IProductRepository
 {
-    private readonly InMemoryDbContext _inMemoryDbContext = inMemoryDbContext;
+    public ProductRepository(InMemoryDbContext context) : base(context)
+    {
 
-    public async Task<IEnumerable<ProductEntity>> GetAllAsync()
-        => await _inMemoryDbContext.Product.ToListAsync();
+    }
 }
