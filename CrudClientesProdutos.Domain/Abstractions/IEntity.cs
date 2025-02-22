@@ -1,4 +1,4 @@
-﻿namespace CrudClientesProdutos.Domain.Interfaces
+﻿namespace CrudClientesProdutos.Domain.Abstractions
 {
     public interface IEntity
     {
