@@ -1,13 +1,11 @@
-﻿using CrudClientesProdutos.Domain.Entities;
-using CrudClientesProdutos.Domain.Interfaces.Repositories;
-using Microsoft.EntityFrameworkCore;
+﻿using CrudClientesProdutos.Domain.Clients;
 
 namespace CrudClientesProdutos.InMemory.Repositories;
 
-public class ClientRepository(InMemoryDbContext context) : IClientRepository
+public class ClientRepository : RepositoryBase<ClientEntity>, IClientRepository
 {
-    private readonly InMemoryDbContext _context = context;
+    public ClientRepository(InMemoryDbContext context) : base(context)
+    {
 
-    public async Task<IEnumerable<ClientEntity>> GetAllAsync()
-        => await _context.Client.ToListAsync();
+    }
 }
