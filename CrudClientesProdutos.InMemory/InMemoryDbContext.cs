@@ -1,4 +1,5 @@
-﻿using CrudClientesProdutos.Domain.Entities;
+﻿using CrudClientesProdutos.Domain.Clients;
+using CrudClientesProdutos.Domain.Products;
 using Microsoft.EntityFrameworkCore;
 
 namespace CrudClientesProdutos.InMemory
