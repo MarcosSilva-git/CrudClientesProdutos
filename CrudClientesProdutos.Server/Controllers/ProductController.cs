@@ -1,6 +1,7 @@
 ﻿using CrudClientesProdutos.Application.DTOs.Product;
 using CrudClientesProdutos.Domain.Products;
 using CrudClientesProdutos.Server.Controllers.Generics;
+using CrudClientesProdutos.Server.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrudClientesProdutos.Server.Controllers;
@@ -23,7 +24,7 @@ public class ProductController(IProductService productService) : ApplicationV1Co
 
         return result.Match(
             product => Ok(ProductResponseDTO.FromEntity(product)),
-            ErrorResult);
+            error => error.ToIActionResult(this));
     }
 
     [HttpPut("{id}")]
@@ -33,7 +34,7 @@ public class ProductController(IProductService productService) : ApplicationV1Co
 
         return result.Match(
             product => Ok(ProductResponseDTO.FromEntity(product)),
-           ErrorResult);
+           error => error.ToIActionResult(this));
     }
 
     [HttpDelete]
@@ -41,6 +42,8 @@ public class ProductController(IProductService productService) : ApplicationV1Co
     {
         var result = await _productService.DeleteAsync(productId);
 
-        return result.Match(id => Ok(id), ErrorResult);
+        return result.Match(
+            id => Ok(id),
+            error => error.ToIActionResult(this));
     }
 }

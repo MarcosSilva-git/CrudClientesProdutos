@@ -43,5 +43,4 @@ public class RepositoryBase<T>(
         await _context.SaveChangesAsync();
         return entity.Id;
     }
-
 }

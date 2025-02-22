@@ -14,7 +14,6 @@ public class ProductService(IProductRepository productRepository) : IProductServ
     public async Task<IEnumerable<ProductEntity>> GetAllAsync()
          => await _productRepository.GetAllAsync();
 
-
     public async Task<Result<ProductEntity>> CreateAsync(ProductCreateUpdateDTO product)
     {
         if (product.Price <= 0)

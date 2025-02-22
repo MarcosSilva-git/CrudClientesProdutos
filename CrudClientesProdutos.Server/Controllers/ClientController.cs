@@ -1,6 +1,7 @@
 ﻿using CrudClientesProdutos.Application.DTOs.Client;
 using CrudClientesProdutos.Application.Services.Client;
 using CrudClientesProdutos.Server.Controllers.Generics;
+using CrudClientesProdutos.Server.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrudClientesProdutos.Server.Controllers;
@@ -24,7 +25,7 @@ public class ClientController(IClientService clientService) : ApplicationV1Contr
 
         return result.Match(
             client => Ok(ClientResponseDTO.FromEntity(client)),
-            ErrorResult);
+            error => error.ToIActionResult(this));
     }
 
     [HttpPut("{id}")]
@@ -34,7 +35,7 @@ public class ClientController(IClientService clientService) : ApplicationV1Contr
 
         return result.Match(
             client => Ok(ClientResponseDTO.FromEntity(client)),
-            ErrorResult);
+             error => error.ToIActionResult(this));
     }
 
     [HttpDelete]
@@ -42,6 +43,8 @@ public class ClientController(IClientService clientService) : ApplicationV1Contr
     {
         var result = await _clientService.DeleteAsync(clientId);
 
-        return result.Match(id => Ok(id), ErrorResult);
+        return result.Match(
+            id => Ok(id), 
+            error => error.ToIActionResult(this));
     }
 }

@@ -5,12 +5,12 @@ public readonly struct Result<T>
     public readonly bool IsSuccess;
     public bool IsFailure { get => !IsSuccess; }
 
-    private readonly Error Error;
-    private readonly T? TValue;
+    public readonly Error Error;
+    public readonly T? Value;
     
     private Result(T? value, bool isSuccess, Error error)
     {
-        TValue = value;
+        Value = value;
         IsSuccess = isSuccess;
         Error = error;
     }
@@ -25,6 +25,6 @@ public readonly struct Result<T>
     public TResult Match<TResult>(
         Func<T, TResult> onSuccess, 
         Func<Error, TResult> onFailure)
-        => IsSuccess ? onSuccess(TValue!) : onFailure(Error);
+        => IsSuccess ? onSuccess(Value!) : onFailure(Error);
 
 }
