@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# IDE0161: Converter em namespace com escopo de arquivo
+csharp_style_namespace_declarations = file_scoped
