@@ -1,4 +1,4 @@
-﻿using CrudClientesProdutos.Domain.Products;
+﻿using CrudClientesProdutos.Domain.Product;
 
 namespace CrudClientesProdutos.Application.Product.DTO;
 

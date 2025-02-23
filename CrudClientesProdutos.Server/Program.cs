@@ -1,11 +1,25 @@
 using Asp.Versioning.ApiExplorer;
 using CrudClientesProdutos.Server.Configurations;
+using CrudClientesProdutos.Server.Middlewares;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+
+builder.Services.AddProblemDetails(option =>
+{
+    option.CustomizeProblemDetails = context =>
+    {
+        context.ProblemDetails.Extensions["traceId"] = context.HttpContext.TraceIdentifier;
+        context.ProblemDetails.Extensions["path"] = context.HttpContext.Request.Path.Value;
+        context.ProblemDetails.Extensions["method"] = context.HttpContext.Request.Method;
+    };
+});
+
+
 builder.Services.AddApiVersioning()
     .AddMvc()
     .AddApiExplorer(setup =>
@@ -45,6 +59,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseExceptionHandler();
 
 app.MapFallbackToFile("/index.html");
 

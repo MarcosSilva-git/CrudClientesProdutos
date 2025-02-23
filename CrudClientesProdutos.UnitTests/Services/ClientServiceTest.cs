@@ -1,7 +1,6 @@
 ﻿using CrudClientesProdutos.Application.Client;
 using CrudClientesProdutos.Application.Client.DTO;
 using CrudClientesProdutos.Domain.Client;
-using CrudClientesProdutos.Domain.Clients;
 using Moq;
 
 namespace CrudClientesProdutos.UnitTests.Services

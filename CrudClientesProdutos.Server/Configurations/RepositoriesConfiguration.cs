@@ -1,5 +1,5 @@
-﻿using CrudClientesProdutos.Domain.Clients;
-using CrudClientesProdutos.Domain.Products;
+﻿using CrudClientesProdutos.Domain.Client;
+using CrudClientesProdutos.Domain.Product;
 using CrudClientesProdutos.InMemory.Repositories;
 
 namespace CrudClientesProdutos.Server.Configurations;

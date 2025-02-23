@@ -1,7 +1,5 @@
 ﻿using CrudClientesProdutos.Domain.Product;
-using CrudClientesProdutos.Domain.Products;
 using CrudClientesProdutos.Domain.Abstractions;
-using CrudClientesProdutos.Domain;
 using CrudClientesProdutos.Domain.Client;
 using CrudClientesProdutos.Application.Product.DTO;
 
@@ -11,13 +9,12 @@ public class ProductService(IProductRepository productRepository) : IProductServ
 {
     private readonly IProductRepository _productRepository = productRepository;
 
-    public async Task<IEnumerable<ProductEntity>> GetAllAsync()
-         => await _productRepository.GetAllAsync();
+    public IEnumerable<ProductEntity> GetAll()
+         => _productRepository.GetAll();
 
-    public async Task<Result<ProductEntity, Error>> CreateAsync(ProductCreateUpdateDTO product)
+    public Result<ProductEntity, Error> Create(ProductCreateUpdateDTO product)
     {
-        if (product.Price <= 0)
-            return ProductErrors.InvalidPrice;
+        
 
         var productEntity = new ProductEntity
         {
@@ -26,15 +23,15 @@ public class ProductService(IProductRepository productRepository) : IProductServ
             Price = product.Price
         };
 
-        return await _productRepository.CreateAsync(productEntity);
+        return _productRepository.Create(productEntity);
     }
 
-    public async Task<Result<ProductEntity, Error>> UpdateAsync(long id, ProductCreateUpdateDTO product)
+    public Result<ProductEntity, Error> Update(long id, ProductCreateUpdateDTO product)
     {
         if (product.Price <= 0)
             return ProductErrors.InvalidPrice;
 
-        var productEntity = await _productRepository.FindAsync(id);
+        var productEntity = _productRepository.Find(id);
 
         if (productEntity is null)
             return ProductErrors.NotFound;
@@ -46,15 +43,15 @@ public class ProductService(IProductRepository productRepository) : IProductServ
         productEntity.Price = product.Price;
         productEntity.Stock = product.Stock;
 
-        return await _productRepository.UpdateAsync(productEntity);
+        return _productRepository.Update(productEntity);
     }
 
-    public async Task<Result<long, Error>> DeleteAsync(long productId)
+    public Result<long, Error> Delete(long productId)
     {
         if (productId <= 0)
             return ClientErrors.InvalidId(productId);
 
-        var id = await _productRepository.DeleteAsync(productId);
+        var id = _productRepository.Delete(productId);
         
         return id is null ? ProductErrors.NotFound : id.Value;
     }

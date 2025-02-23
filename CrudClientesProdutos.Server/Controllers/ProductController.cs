@@ -11,16 +11,16 @@ public class ProductController(IProductService productService) : ApplicationV1Co
     private readonly IProductService _productService = productService;
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<ProductResponseDTO>>> Get()
+    public ActionResult<IEnumerable<ProductResponseDTO>> Get()
     {
-        var products = await _productService.GetAllAsync();
+        var products = _productService.GetAll();
         return Ok(products.Select(ProductResponseDTO.FromEntity));
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(ProductCreateUpdateDTO product)
+    public IActionResult Post(ProductCreateUpdateDTO product)
     {
-        var result = await _productService.CreateAsync(product);
+        var result = _productService.Create(product);
 
         return result.Match(
             product => Ok(ProductResponseDTO.FromEntity(product)),
@@ -28,9 +28,9 @@ public class ProductController(IProductService productService) : ApplicationV1Co
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Put(long id, ProductCreateUpdateDTO product)
+    public IActionResult Put(long id, ProductCreateUpdateDTO product)
     {
-        var result = await _productService.UpdateAsync(id, product);
+        var result = _productService.Update(id, product);
 
         return result.Match(
             product => Ok(ProductResponseDTO.FromEntity(product)),
@@ -38,9 +38,9 @@ public class ProductController(IProductService productService) : ApplicationV1Co
     }
 
     [HttpDelete]
-    public async Task<IActionResult> Delete(long productId)
+    public IActionResult Delete(long productId)
     {
-        var result = await _productService.DeleteAsync(productId);
+        var result = _productService.Delete(productId);
 
         return result.Match(
             id => Ok(id),

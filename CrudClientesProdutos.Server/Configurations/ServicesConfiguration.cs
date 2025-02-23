@@ -8,6 +8,9 @@ internal static class ServicesConfiguration
     public static void AddServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<IProductService, ProductService>();
+        services.AddScoped<IProductValidator, ProductValidator>();
+
         services.AddScoped<IClientService, ClientService>();
+        services.AddScoped<IClientValidator, ClientValidator>();
     }
 }

@@ -1,13 +1,13 @@
 ﻿using CrudClientesProdutos.Application.Client.DTO;
 using CrudClientesProdutos.Domain.Abstractions;
-using CrudClientesProdutos.Domain.Clients;
+using CrudClientesProdutos.Domain.Client;
 
 namespace CrudClientesProdutos.Application.Client;
 
 public interface IClientService
 {
-    Task<IEnumerable<ClientEntity>> GetAllAsync();
-    Task<Result<ClientEntity, Error>> CreateAsync(ClientCreateUpdateDTO product);
-    Task<Result<long, Error>> DeleteAsync(long productId);
-    Task<Result<ClientEntity, Error>> UpdateAsync(long id, ClientCreateUpdateDTO product);
+    IEnumerable<ClientEntity> GetAll();
+    Result<ClientEntity, Error> Create(ClientCreateUpdateDTO product);
+    Result<long, Error> Delete(long productId);
+    Result<ClientEntity, Error> Update(long id, ClientCreateUpdateDTO product);
 }

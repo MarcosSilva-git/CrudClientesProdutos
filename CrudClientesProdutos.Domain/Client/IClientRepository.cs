@@ -1,6 +1,6 @@
 ﻿using CrudClientesProdutos.Domain.Abstractions;
 
-namespace CrudClientesProdutos.Domain.Clients
+namespace CrudClientesProdutos.Domain.Client
 {
     public interface IClientRepository : IRepository<ClientEntity>
     {

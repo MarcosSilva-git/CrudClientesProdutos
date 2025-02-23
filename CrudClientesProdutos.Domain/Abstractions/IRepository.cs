@@ -1,15 +1,14 @@
-﻿namespace CrudClientesProdutos.Domain.Abstractions
+﻿namespace CrudClientesProdutos.Domain.Abstractions;
+
+public interface IRepository<T> where T : IEntity 
 {
-    public interface IRepository<T> where T : IEntity 
-    {
-        Task<IEnumerable<T>> GetAllAsync();
+    IEnumerable<T> GetAll();
 
-        Task<T?> FindAsync(long id);
+    T? Find(long id);
 
-        Task<T> CreateAsync(T entity); 
-        
-        Task<T> UpdateAsync(T entity); 
-        
-        Task<long?> DeleteAsync(long id); 
-    }
+    T Create(T entity); 
+    
+    T Update(T entity); 
+    
+    long? Delete(long id); 
 }

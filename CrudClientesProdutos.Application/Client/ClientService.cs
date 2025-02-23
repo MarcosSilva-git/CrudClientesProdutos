@@ -1,26 +1,26 @@
 ﻿using CrudClientesProdutos.Application.Client.DTO;
-using CrudClientesProdutos.Domain;
 using CrudClientesProdutos.Domain.Abstractions;
 using CrudClientesProdutos.Domain.Client;
-using CrudClientesProdutos.Domain.Clients;
 
 namespace CrudClientesProdutos.Application.Client;
 
-public class ClientService(IClientRepository clientRepository) : IClientService
+public class ClientService(
+    IClientRepository clientRepository,
+    IClientValidator clientValidator) : IClientService
 {
     private readonly IClientRepository _clientRepository = clientRepository;
+    private readonly IClientValidator _clientValidator = clientValidator;
 
-    public async Task<IEnumerable<ClientEntity>> GetAllAsync()
-         => await _clientRepository.GetAllAsync();
+    public IEnumerable<ClientEntity> GetAll()
+         => _clientRepository.GetAll();
 
 
-    public async Task<Result<ClientEntity, Error>> CreateAsync(ClientCreateUpdateDTO client)
+    public Result<ClientEntity, Error> Create(ClientCreateUpdateDTO client)
     {
-        if (client.Name.Length < 3 || client.Name.Length > 100)
-            return ClientErrors.InvalidNameSize;
+        var validationResult = _clientValidator.Validate(client);
 
-        if (!client.Email.Contains("@"))
-            return ClientErrors.InvalidEmail(client.Email);
+        if (validationResult.IsFailure)
+            return validationResult.Error!;
 
         var clientEntity = new ClientEntity
         {
@@ -30,18 +30,17 @@ public class ClientService(IClientRepository clientRepository) : IClientService
             Active = client.Active
         };
 
-        return await _clientRepository.CreateAsync(clientEntity);
+        return _clientRepository.Create(clientEntity);
     }
 
-    public async Task<Result<ClientEntity, Error>> UpdateAsync(long id, ClientCreateUpdateDTO client)
+    public Result<ClientEntity, Error> Update(long id, ClientCreateUpdateDTO client)
     {
-        if (client.Name.Length < 3 || client.Name.Length > 100)
-            return ClientErrors.InvalidNameSize;
+        var validationResult = _clientValidator.Validate(client);
 
-        if (!client.Email.Contains("@"))
-            return ClientErrors.InvalidEmail(client.Email);
+        if (validationResult.IsFailure)
+            return validationResult.Error!;
 
-        var clientEntity = await _clientRepository.FindAsync(id);
+        var clientEntity = _clientRepository.Find(id);
 
         if (clientEntity is null)
             return ClientErrors.NotFound;
@@ -51,15 +50,15 @@ public class ClientService(IClientRepository clientRepository) : IClientService
         clientEntity.PhoneNumber = client.PhoneNumber;
         clientEntity.Active = client.Active;
 
-        return await _clientRepository.UpdateAsync(clientEntity);
+        return _clientRepository.Update(clientEntity);
     }
 
-    public async Task<Result<long, Error>> DeleteAsync(long clientId)
+    public Result<long, Error> Delete(long clientId)
     {
         if (clientId <= 0)
             return ClientErrors.InvalidId(clientId);
 
-        var id = await _clientRepository.DeleteAsync(clientId);
+        var id = _clientRepository.Delete(clientId);
 
         return id is null ? ClientErrors.NotFound : id.Value;
     }

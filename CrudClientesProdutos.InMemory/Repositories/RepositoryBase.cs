@@ -9,38 +9,38 @@ public class RepositoryBase<T>(
     protected readonly InMemoryDbContext _context = context;
     protected readonly DbSet<T> _dbSet = context.Set<T>();
 
-    public async virtual Task<IEnumerable<T>> GetAllAsync()
-        => await _context.Set<T>().ToListAsync();
+    public virtual IEnumerable<T> GetAll()
+        => _context.Set<T>().ToList();
 
-    public async virtual Task<T?> FindAsync(long id)
-        => await _dbSet.FindAsync(id);
+    public virtual T? Find(long id)
+        => _dbSet.Find(id);
 
-    public async virtual Task<T> CreateAsync(T entity)
+    public virtual T Create(T entity)
     {
-        var newEntity = await _dbSet.AddAsync(entity);
-        await _context.SaveChangesAsync();
+        var newEntity = _dbSet.Add(entity);
+        _context.SaveChanges();
 
         return newEntity.Entity;
     }
 
-    public async virtual Task<T> UpdateAsync(T entity)
+    public virtual T Update(T entity)
     {
         _dbSet.Update(entity);
-        await _context.SaveChangesAsync();
+        _context.SaveChanges();
 
         return entity;
     }
 
-    public async virtual Task<long?> DeleteAsync(long id)
+    public virtual long? Delete(long id)
     {
-        var entity = await _dbSet.FindAsync(id);
+        var entity = _dbSet.Find(id);
 
         if (entity is null)
             return null;
 
         _dbSet.Remove(entity);
 
-        await _context.SaveChangesAsync();
+        _context.SaveChanges();
         return entity.Id;
     }
 }

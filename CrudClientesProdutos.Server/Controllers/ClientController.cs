@@ -11,17 +11,17 @@ public class ClientController(IClientService clientService) : ApplicationV1Contr
     private readonly IClientService _clientService = clientService;
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<ClientResponseDTO>>> Get()
+    public ActionResult<IEnumerable<ClientResponseDTO>> Get()
     {
-        var clients = await _clientService.GetAllAsync();
+        var clients = _clientService.GetAll();
 
         return Ok(clients.Select(ClientResponseDTO.FromEntity));
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(ClientCreateUpdateDTO client)
+    public IActionResult Post(ClientCreateUpdateDTO client)
     {
-        var result = await _clientService.CreateAsync(client);
+        var result = _clientService.Create(client);
 
         return result.Match(
             client => Ok(ClientResponseDTO.FromEntity(client)),
@@ -29,9 +29,9 @@ public class ClientController(IClientService clientService) : ApplicationV1Contr
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Put(long id, ClientCreateUpdateDTO client)
+    public IActionResult Put(long id, ClientCreateUpdateDTO client)
     {
-        var result = await _clientService.UpdateAsync(id, client);
+        var result = _clientService.Update(id, client);
 
         return result.Match(
             client => Ok(ClientResponseDTO.FromEntity(client)),
@@ -39,9 +39,9 @@ public class ClientController(IClientService clientService) : ApplicationV1Contr
     }
 
     [HttpDelete]
-    public async Task<IActionResult> Delete(long clientId)
+    public IActionResult Delete(long clientId)
     {
-        var result = await _clientService.DeleteAsync(clientId);
+        var result = _clientService.Delete(clientId);
 
         return result.Match(
             id => Ok(id), 
