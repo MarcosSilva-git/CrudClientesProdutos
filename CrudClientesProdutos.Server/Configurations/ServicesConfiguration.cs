@@ -4,7 +4,7 @@ using CrudClientesProdutos.Domain.Products;
 
 namespace CrudClientesProdutos.Server.Configurations;
 
-public static class ServicesConfiguration
+internal static class ServicesConfiguration
 {
     public static void AddServices(this IServiceCollection services, IConfiguration configuration)
     {

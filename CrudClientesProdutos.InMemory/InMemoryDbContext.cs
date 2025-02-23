@@ -2,13 +2,15 @@
 using CrudClientesProdutos.Domain.Products;
 using Microsoft.EntityFrameworkCore;
 
-namespace CrudClientesProdutos.InMemory
-{
-    public class InMemoryDbContext : DbContext
-    {
-        public InMemoryDbContext(DbContextOptions<InMemoryDbContext> options) : base(options) { }
+namespace CrudClientesProdutos.InMemory;
 
-        public DbSet<ClientEntity> Client { get; set; }
-        public DbSet<ProductEntity> Product { get; set; }
-    }
+public class InMemoryDbContext : DbContext
+{
+    public InMemoryDbContext(DbContextOptions<InMemoryDbContext> options) : base(options) { }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+         => modelBuilder.ApplyConfigurationsFromAssembly(typeof(InMemoryDbContext).Assembly);
+
+    public DbSet<ClientEntity> Clients { get; set; }
+    public DbSet<ProductEntity> Products { get; set; }
 }

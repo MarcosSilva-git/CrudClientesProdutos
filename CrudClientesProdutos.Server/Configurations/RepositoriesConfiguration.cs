@@ -4,7 +4,7 @@ using CrudClientesProdutos.InMemory.Repositories;
 
 namespace CrudClientesProdutos.Server.Configurations;
 
-public static class RepositoriesConfiguration
+internal static class RepositoriesConfiguration
 {
     public static void AddRepositories(this IServiceCollection services)
     {

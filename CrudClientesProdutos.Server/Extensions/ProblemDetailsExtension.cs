@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CrudClientesProdutos.Server.Extensions;
 
-public static class ProblemDetailsExtension
+internal static class ProblemDetailsExtension
 {
     public static IActionResult ToIActionResult(ProblemDetails problemDetails, ControllerBase controller)
         => problemDetails.Status switch
