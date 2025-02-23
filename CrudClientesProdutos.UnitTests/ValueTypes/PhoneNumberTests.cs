@@ -7,9 +7,7 @@ public class PhoneNumberTests
     private readonly List<string> ValidPhoneNumbers = new List<string>
     {
         "+55 11 99999-9999",
-        "+55 11 9999-9999",
         "+5511999999999",
-        "+551199999999",
         "+55 11 999999999",
     };
 

@@ -10,7 +10,7 @@ public struct PhoneNumber
 
     private static readonly Dictionary<string, string> PhonePatterns = new()
     {
-        { "pt-BR", @"^\+55\s?\d{2}\s?\d{4,5}-?\d{4}$" }
+        { "pt-BR", @"^\+55\s?\d{2}\s?\d{5}-?\d{4}$" }
     };
 
     public PhoneNumber(string value)
