@@ -1,17 +1,18 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 interface WeatherForecast {
-  date: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
+  name: string;
+  //temperatureC: number;
+  //temperatureF: number;
+  //summary: string;
 }
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  standalone: false,
+  imports: [HttpClientModule],
+  standalone: true,
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
@@ -24,11 +25,11 @@ export class AppComponent implements OnInit {
   }
 
   getForecasts() {
-    this.http.get<WeatherForecast[]>('/weatherforecast').subscribe(
-      (result) => {
+    this.http.get<WeatherForecast[]>('https://localhost:7163/api/v1/Client').subscribe(
+      result => {
         this.forecasts = result;
       },
-      (error) => {
+      error => {
         console.error(error);
       }
     );
