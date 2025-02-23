@@ -20,7 +20,7 @@ public class ClientService(
         var validationResult = _clientValidator.Validate(client);
 
         if (validationResult.IsFailure)
-            return validationResult.Error!;
+            return validationResult.Error;
 
         var clientEntity = new ClientEntity
         {
@@ -38,7 +38,7 @@ public class ClientService(
         var validationResult = _clientValidator.Validate(client);
 
         if (validationResult.IsFailure)
-            return validationResult.Error!;
+            return validationResult.Error;
 
         var clientEntity = _clientRepository.Find(id);
 

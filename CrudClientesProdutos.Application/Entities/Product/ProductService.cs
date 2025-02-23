@@ -19,7 +19,7 @@ public class ProductService(
         var result = _productValidator.Validate(product);
 
         if (result.IsFailure)
-            return result.Error!;
+            return result.Error;
 
         var productEntity = new ProductEntity
         {
@@ -36,7 +36,7 @@ public class ProductService(
         var result = _productValidator.Validate(product);
 
         if (result.IsFailure)
-            return result.Error!;
+            return result.Error;
 
         var productEntity = _productRepository.Find(id);
 
