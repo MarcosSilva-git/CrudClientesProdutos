@@ -1,5 +1,5 @@
-﻿using CrudClientesProdutos.Application.Client;
-using CrudClientesProdutos.Application.Client.DTO;
+﻿using CrudClientesProdutos.Application.Entities.Client;
+using CrudClientesProdutos.Application.Entities.Client.DTO;
 using CrudClientesProdutos.Server.Controllers.Generics;
 using CrudClientesProdutos.Server.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -38,10 +38,10 @@ public class ClientController(IClientService clientService) : ApplicationV1Contr
              error => error.ToIActionResult(this));
     }
 
-    [HttpDelete]
-    public IActionResult Delete(long clientId)
+    [HttpDelete("{id}")]
+    public IActionResult Delete(long id)
     {
-        var result = _clientService.Delete(clientId);
+        var result = _clientService.Delete(id);
 
         return result.Match(
             id => Ok(id), 

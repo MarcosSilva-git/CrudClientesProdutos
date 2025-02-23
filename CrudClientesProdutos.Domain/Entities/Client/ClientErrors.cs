@@ -1,6 +1,6 @@
 ﻿using CrudClientesProdutos.Domain.Abstractions;
 
-namespace CrudClientesProdutos.Domain.Client;
+namespace CrudClientesProdutos.Domain.Entities.Client;
 
 public static class ClientErrors
 {

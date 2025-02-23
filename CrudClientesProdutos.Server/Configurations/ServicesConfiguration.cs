@@ -1,7 +1,7 @@
-﻿using CrudClientesProdutos.Application.Client;
-using CrudClientesProdutos.Application.Product;
-using CrudClientesProdutos.Domain.Client;
-using CrudClientesProdutos.Domain.Product;
+﻿using CrudClientesProdutos.Application.Entities.Client;
+using CrudClientesProdutos.Application.Entities.Product;
+using CrudClientesProdutos.Domain.Entities.Client;
+using CrudClientesProdutos.Domain.Entities.Product;
 using CrudClientesProdutos.InMemory.Repositories;
 
 namespace CrudClientesProdutos.Server.Configurations;

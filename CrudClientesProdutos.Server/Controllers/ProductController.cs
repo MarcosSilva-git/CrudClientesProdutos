@@ -1,5 +1,5 @@
-﻿using CrudClientesProdutos.Application.Product;
-using CrudClientesProdutos.Application.Product.DTO;
+﻿using CrudClientesProdutos.Application.Entities.Product;
+using CrudClientesProdutos.Application.Entities.Product.DTO;
 using CrudClientesProdutos.Server.Controllers.Generics;
 using CrudClientesProdutos.Server.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -37,10 +37,10 @@ public class ProductController(IProductService productService) : ApplicationV1Co
            error => error.ToIActionResult(this));
     }
 
-    [HttpDelete]
-    public IActionResult Delete(long productId)
+    [HttpDelete("{id}")]
+    public IActionResult Delete(long id)
     {
-        var result = _productService.Delete(productId);
+        var result = _productService.Delete(id);
 
         return result.Match(
             id => Ok(id),

@@ -1,9 +1,8 @@
-﻿using CrudClientesProdutos.Domain.Product;
-using CrudClientesProdutos.Domain.Abstractions;
-using CrudClientesProdutos.Domain.Client;
-using CrudClientesProdutos.Application.Product.DTO;
+﻿using CrudClientesProdutos.Domain.Abstractions;
+using CrudClientesProdutos.Application.Entities.Product.DTO;
+using CrudClientesProdutos.Domain.Entities.Product;
 
-namespace CrudClientesProdutos.Application.Product;
+namespace CrudClientesProdutos.Application.Entities.Product;
 
 public class ProductService(
     IProductRepository productRepository,

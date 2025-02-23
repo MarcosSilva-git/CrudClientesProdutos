@@ -1,8 +1,8 @@
-﻿using CrudClientesProdutos.Application.Client.DTO;
+﻿using CrudClientesProdutos.Application.Entities.Client.DTO;
 using CrudClientesProdutos.Domain.Abstractions;
-using CrudClientesProdutos.Domain.Client;
+using CrudClientesProdutos.Domain.Entities.Client;
 
-namespace CrudClientesProdutos.Application.Client;
+namespace CrudClientesProdutos.Application.Entities.Client;
 
 public class ClientValidator : IClientValidator
 {

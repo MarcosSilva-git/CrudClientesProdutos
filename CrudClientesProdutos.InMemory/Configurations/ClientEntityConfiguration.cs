@@ -1,4 +1,4 @@
-﻿using CrudClientesProdutos.Domain.Client;
+﻿using CrudClientesProdutos.Domain.Entities.Client;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

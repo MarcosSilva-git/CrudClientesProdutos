@@ -1,4 +1,4 @@
-﻿using CrudClientesProdutos.Domain.Product;
+﻿using CrudClientesProdutos.Domain.Entities.Product;
 
 namespace CrudClientesProdutos.InMemory.Repositories;
 

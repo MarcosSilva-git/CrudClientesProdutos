@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CrudClientesProdutos.Application.Client.DTO;
+namespace CrudClientesProdutos.Application.Entities.Client.DTO;
 
 public record ClientCreateUpdateDTO 
 {

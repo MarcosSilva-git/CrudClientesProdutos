@@ -1,9 +1,9 @@
-﻿using CrudClientesProdutos.Application.Client;
-using CrudClientesProdutos.Application.Client.DTO;
+﻿using CrudClientesProdutos.Application.Entities.Client.DTO;
+using CrudClientesProdutos.Application.Entities.Client;
 using CrudClientesProdutos.Domain.Abstractions;
-using CrudClientesProdutos.Domain.Client;
+using CrudClientesProdutos.Domain.Entities.Client;
 
-namespace CrudClientesProdutos.UnitTests.Validators;
+namespace CrudClientesProdutos.UnitTests.Entities.Client;
 
 public class ClientValidatorTests
 {

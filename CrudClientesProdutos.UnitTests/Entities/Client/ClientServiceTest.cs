@@ -1,10 +1,10 @@
-﻿using CrudClientesProdutos.Application.Client;
-using CrudClientesProdutos.Application.Client.DTO;
+﻿using CrudClientesProdutos.Application.Entities.Client.DTO;
+using CrudClientesProdutos.Application.Entities.Client;
 using CrudClientesProdutos.Domain.Abstractions;
-using CrudClientesProdutos.Domain.Client;
+using CrudClientesProdutos.Domain.Entities.Client;
 using Moq;
 
-namespace CrudClientesProdutos.UnitTests.Services;
+namespace CrudClientesProdutos.UnitTests.Entities.Client;
 
 public class ClientServiceTests
 {

@@ -1,8 +1,8 @@
-﻿using CrudClientesProdutos.Application.Product.DTO;
+﻿using CrudClientesProdutos.Application.Entities.Product.DTO;
 using CrudClientesProdutos.Domain.Abstractions;
-using CrudClientesProdutos.Domain.Product;
+using CrudClientesProdutos.Domain.Entities.Product;
 
-namespace CrudClientesProdutos.Application.Product;
+namespace CrudClientesProdutos.Application.Entities.Product;
 
 public class ProductValidator : IProductValidator
 {

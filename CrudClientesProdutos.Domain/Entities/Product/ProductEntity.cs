@@ -1,6 +1,6 @@
 ﻿using CrudClientesProdutos.Domain.Abstractions;
 
-namespace CrudClientesProdutos.Domain.Product;
+namespace CrudClientesProdutos.Domain.Entities.Product;
 
 public class ProductEntity : IEntity
 {

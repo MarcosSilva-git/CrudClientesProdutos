@@ -1,6 +1,4 @@
 ﻿using Asp.Versioning;
-using CrudClientesProdutos.Domain.Abstractions;
-using CrudClientesProdutos.Server.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrudClientesProdutos.Server.Controllers.Generics;
@@ -9,7 +7,4 @@ namespace CrudClientesProdutos.Server.Controllers.Generics;
 [ApiController]
 [Route("api/v{version:apiVersion}/[controller]")]
 
-public abstract class ApplicationV1ControllerBase : ControllerBase
-{
-    
-}
+public abstract class ApplicationV1ControllerBase : ControllerBase;

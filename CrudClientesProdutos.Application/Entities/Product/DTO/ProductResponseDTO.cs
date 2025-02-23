@@ -1,6 +1,6 @@
-﻿using CrudClientesProdutos.Domain.Product;
+﻿using CrudClientesProdutos.Domain.Entities.Product;
 
-namespace CrudClientesProdutos.Application.Product.DTO;
+namespace CrudClientesProdutos.Application.Entities.Product.DTO;
 
 public record ProductResponseDTO(
     long Id,
