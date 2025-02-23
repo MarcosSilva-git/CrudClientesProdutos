@@ -7,7 +7,7 @@ namespace CrudClientesProdutos.Application.Services.Client;
 public interface IClientService
 {
     Task<IEnumerable<ClientEntity>> GetAllAsync();
-    Task<Result<ClientEntity>> CreateAsync(ClientCreateUpdateDTO product);
-    Task<Result<long>> DeleteAsync(long productId);
-    Task<Result<ClientEntity>> UpdateAsync(long id, ClientCreateUpdateDTO product);
+    Task<Result<ClientEntity, Error>> CreateAsync(ClientCreateUpdateDTO product);
+    Task<Result<long, Error>> DeleteAsync(long productId);
+    Task<Result<ClientEntity, Error>> UpdateAsync(long id, ClientCreateUpdateDTO product);
 }

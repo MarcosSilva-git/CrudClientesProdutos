@@ -1,30 +1,30 @@
 ﻿namespace CrudClientesProdutos.Domain.Abstractions;
 
-public readonly struct Result<T> 
+public readonly struct Result<T, E> 
 {
     public readonly bool IsSuccess;
     public bool IsFailure { get => !IsSuccess; }
 
-    public readonly Error Error;
+    public readonly E? Error;
     public readonly T? Value;
     
-    private Result(T? value, bool isSuccess, Error error)
+    private Result(T? value, bool isSuccess, E? error)
     {
         Value = value;
         IsSuccess = isSuccess;
         Error = error;
     }
 
-    public static Result<T> Success(T value) => new Result<T>(value, true, Error.None);
-    public static Result<T> Fail(Error error) => new Result<T>(default, false, error);
+    public static Result<T, E> Success(T value) => new Result<T, E>(value, true, default);
+    public static Result<T, E> Fail(E error) => new Result<T, E>(default, false, error);
 
 
-    public static implicit operator Result<T>(T value) => Success(value);
-    public static implicit operator Result<T>(Error error) => Fail(error);
+    public static implicit operator Result<T, E>(T value) => Success(value);
+    public static implicit operator Result<T, E>(E error) => Fail(error);
 
     public TResult Match<TResult>(
         Func<T, TResult> onSuccess, 
-        Func<Error, TResult> onFailure)
-        => IsSuccess ? onSuccess(Value!) : onFailure(Error);
+        Func<E, TResult> onFailure)
+        => IsSuccess ? onSuccess(Value!) : onFailure(Error!);
 
 }

@@ -1,6 +1,5 @@
 ﻿using CrudClientesProdutos.Domain.Abstractions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Server.HttpSys;
 
 namespace CrudClientesProdutos.Server.Extensions;
 

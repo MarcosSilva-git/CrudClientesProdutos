@@ -1,10 +1,8 @@
 ﻿using CrudClientesProdutos.Application.DTOs.Client;
-using CrudClientesProdutos.Application.DTOs.Product;
 using CrudClientesProdutos.Domain;
 using CrudClientesProdutos.Domain.Abstractions;
 using CrudClientesProdutos.Domain.Client;
 using CrudClientesProdutos.Domain.Clients;
-using CrudClientesProdutos.Domain.Product;
 
 namespace CrudClientesProdutos.Application.Services.Client;
 
@@ -16,7 +14,7 @@ public class ClientService(IClientRepository clientRepository) : IClientService
          => await _clientRepository.GetAllAsync();
 
 
-    public async Task<Result<ClientEntity>> CreateAsync(ClientCreateUpdateDTO client)
+    public async Task<Result<ClientEntity, Error>> CreateAsync(ClientCreateUpdateDTO client)
     {
         if (client.Name.Length < 3 || client.Name.Length > 100)
             return ClientErrors.InvalidNameSize;
@@ -35,7 +33,7 @@ public class ClientService(IClientRepository clientRepository) : IClientService
         return await _clientRepository.CreateAsync(clientEntity);
     }
 
-    public async Task<Result<ClientEntity>> UpdateAsync(long id, ClientCreateUpdateDTO client)
+    public async Task<Result<ClientEntity, Error>> UpdateAsync(long id, ClientCreateUpdateDTO client)
     {
         if (client.Name.Length < 3 || client.Name.Length > 100)
             return ClientErrors.InvalidNameSize;
@@ -56,7 +54,7 @@ public class ClientService(IClientRepository clientRepository) : IClientService
         return await _clientRepository.UpdateAsync(clientEntity);
     }
 
-    public async Task<Result<long>> DeleteAsync(long clientId)
+    public async Task<Result<long, Error>> DeleteAsync(long clientId)
     {
         if (clientId <= 0)
             return CommomErrors.InvalidId;

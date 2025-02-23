@@ -14,7 +14,7 @@ public class ProductService(IProductRepository productRepository) : IProductServ
     public async Task<IEnumerable<ProductEntity>> GetAllAsync()
          => await _productRepository.GetAllAsync();
 
-    public async Task<Result<ProductEntity>> CreateAsync(ProductCreateUpdateDTO product)
+    public async Task<Result<ProductEntity, Error>> CreateAsync(ProductCreateUpdateDTO product)
     {
         if (product.Price <= 0)
             return ProductErrors.InvalidPrice;
@@ -29,7 +29,7 @@ public class ProductService(IProductRepository productRepository) : IProductServ
         return await _productRepository.CreateAsync(productEntity);
     }
 
-    public async Task<Result<ProductEntity>> UpdateAsync(long id, ProductCreateUpdateDTO product)
+    public async Task<Result<ProductEntity, Error>> UpdateAsync(long id, ProductCreateUpdateDTO product)
     {
         if (product.Price <= 0)
             return ProductErrors.InvalidPrice;
@@ -49,7 +49,7 @@ public class ProductService(IProductRepository productRepository) : IProductServ
         return await _productRepository.UpdateAsync(productEntity);
     }
 
-    public async Task<Result<long>> DeleteAsync(long productId)
+    public async Task<Result<long, Error>> DeleteAsync(long productId)
     {
         if (productId <= 0)
             return CommomErrors.InvalidId;
