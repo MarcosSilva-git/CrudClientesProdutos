@@ -11,6 +11,9 @@ public class ProductValidator : IProductValidator
         if (entity.Price <= 0)
             return ProductErrors.InvalidPrice;
 
+        if (entity.Stock < 0)
+            return ProductErrors.InvalidStockQuantity;
+
         return entity;
     }
 }
