@@ -8,6 +8,7 @@ public static class ActionResulExtension
     public static IActionResult ToIActionResult(ProblemDetails problemDetails, ControllerBase controller)
         => problemDetails.Status switch
         {
+            400 => controller.BadRequest(problemDetails),
             401 => controller.Unauthorized(problemDetails),
             403 => controller.Forbid(),
             404 => controller.NotFound(problemDetails),

@@ -12,7 +12,7 @@ public class ClientValidator : IClientValidator
             return ClientErrors.InvalidNameSize;
 
         if (!entity.Email.Contains("@"))
-            return ClientErrors.InvalidEmail(entity.Email);
+            return CommomErrors.Email.InvalidEmail(entity.Email);
 
         return entity;
     }

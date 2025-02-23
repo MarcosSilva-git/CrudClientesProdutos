@@ -5,16 +5,22 @@ using CrudClientesProdutos.Application.Product.DTO;
 
 namespace CrudClientesProdutos.Application.Product;
 
-public class ProductService(IProductRepository productRepository) : IProductService
+public class ProductService(
+    IProductRepository productRepository,
+    IProductValidator productValidator) : IProductService
 {
     private readonly IProductRepository _productRepository = productRepository;
+    private readonly IProductValidator _productValidator = productValidator;
 
     public IEnumerable<ProductEntity> GetAll()
          => _productRepository.GetAll();
 
     public Result<ProductEntity, Error> Create(ProductCreateUpdateDTO product)
     {
-        
+        var result = _productValidator.Validate(product);
+
+        if (result.IsFailure)
+            return result.Error!;
 
         var productEntity = new ProductEntity
         {
@@ -28,16 +34,15 @@ public class ProductService(IProductRepository productRepository) : IProductServ
 
     public Result<ProductEntity, Error> Update(long id, ProductCreateUpdateDTO product)
     {
-        if (product.Price <= 0)
-            return ProductErrors.InvalidPrice;
+        var result = _productValidator.Validate(product);
+
+        if (result.IsFailure)
+            return result.Error!;
 
         var productEntity = _productRepository.Find(id);
 
         if (productEntity is null)
             return ProductErrors.NotFound;
-
-        if (productEntity.Price <= 0)
-            return ProductErrors.InvalidPrice;
 
         productEntity.Name = product.Name;
         productEntity.Price = product.Price;
@@ -49,7 +54,7 @@ public class ProductService(IProductRepository productRepository) : IProductServ
     public Result<long, Error> Delete(long productId)
     {
         if (productId <= 0)
-            return ClientErrors.InvalidId(productId);
+            return CommomErrors.InvalidId(productId);
 
         var id = _productRepository.Delete(productId);
         

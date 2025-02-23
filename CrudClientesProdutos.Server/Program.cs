@@ -27,9 +27,7 @@ builder.Services.AddApiVersioning()
         setup.SubstituteApiVersionInUrl = true;
     });
 
-builder.Services.AddInMemoryDbContext(builder.Configuration);
-
-builder.Services.AddRepositories();
+builder.Services.AddDbContexts(builder.Configuration);
 builder.Services.AddServices(builder.Configuration);
 
 builder.Services.AddSwaggerGen();

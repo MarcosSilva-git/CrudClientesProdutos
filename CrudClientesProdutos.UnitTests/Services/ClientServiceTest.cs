@@ -1,125 +1,144 @@
 ﻿using CrudClientesProdutos.Application.Client;
 using CrudClientesProdutos.Application.Client.DTO;
+using CrudClientesProdutos.Domain.Abstractions;
 using CrudClientesProdutos.Domain.Client;
 using Moq;
 
-namespace CrudClientesProdutos.UnitTests.Services
+namespace CrudClientesProdutos.UnitTests.Services;
+
+public class ClientServiceTests
 {
-    public class ClientServiceTests
+    private readonly Mock<IClientRepository> _clientRepository;
+    private readonly Mock<IClientValidator> _clientValidator;
+    private readonly ClientService _clientService;
+
+    public ClientServiceTests()
     {
-        private readonly Mock<IClientRepository> _clientRepository;
-        private readonly ClientService _clientService;
+        _clientRepository = new Mock<IClientRepository>();
+        _clientValidator = new Mock<IClientValidator>();
+        _clientService = new ClientService(_clientRepository.Object, _clientValidator.Object);
+    }
 
-        public ClientServiceTests()
-        {
-            _clientRepository = new Mock<IClientRepository>();
-            _clientService = new ClientService(_clientRepository.Object);
-        }
+    [Fact]
+    public void GetAll_ShouldReturnClients()
+    {
+        // Arrange
+        var clients = new List<ClientEntity> { new ClientEntity { Id = 1, Name = "John Doe", Email = "john@example.com" } };
+        _clientRepository.Setup(repo => repo.GetAll()).Returns(clients);
 
-        [Fact]
-        public async Task GetAllAsync_ShouldReturnClients()
-        {
-            // Arrange
-            var clients = new List<ClientEntity> { new ClientEntity { Id = 1, Name = "John Doe", Email = "john@example.com" } };
-            _clientRepository.Setup(repo => repo.GetAllAsync()).ReturnsAsync(clients);
+        // Act
+        var result = _clientService.GetAll();
 
-            // Act
-            var result = await _clientService.GetAllAsync();
+        // Assert
+        Assert.NotNull(result);
+        Assert.Single(result);
+    }
 
-            // Assert
-            Assert.NotNull(result);
-            Assert.Single(result);
-        }
+    [Fact]
+    public void Create_InvalidName_ShouldReturnError()
+    {
+        // Arrange
+        var client = new ClientCreateUpdateDTO { Name = "Jo", Email = "valid@example.com" };
 
-        [Fact]
-        public async Task CreateAsync_InvalidName_ShouldReturnError()
-        {
-            // Arrange
-            var client = new ClientCreateUpdateDTO { Name = "Jo", Email = "valid@example.com" };
+        _clientValidator
+            .Setup(validator => validator.Validate(client))
+            .Returns(ClientErrors.InvalidNameSize);
 
-            // Act
-            var result = await _clientService.CreateAsync(client);
+        // Act
+        var result = _clientService.Create(client);
 
-            // Assert
-            Assert.False(result.IsSuccess);
-            Assert.Equal(ClientErrors.InvalidNameSize, result);
-        }
+        // Assert
+        Assert.False(result.IsSuccess);
+        Assert.Equal(ClientErrors.InvalidNameSize, result.Error);
+    }
 
-        [Fact]
-        public async Task CreateAsync_InvalidEmail_ShouldReturnError()
-        {
-            // Arrange
-            var client = new ClientCreateUpdateDTO { Name = "Valid Name", Email = "invalidEmail" };
+    [Fact]
+    public void Create_InvalidEmail_ShouldReturnError()
+    {
+        // Arrange
+        var client = new ClientCreateUpdateDTO { Name = "Valid Name", Email = "invalidEmail" };
 
-            // Act
-            var result = await _clientService.CreateAsync(client);
+        _clientValidator
+            .Setup(validator => validator.Validate(client))
+            .Returns(CommomErrors.Email.InvalidEmail(client.Email));
 
-            // Assert
-            Assert.False(result.IsSuccess);
-            Assert.Equal(ClientErrors.InvalidEmail(client.Email), result);
-        }
+        // Act
+        var result = _clientService.Create(client);
 
-        [Fact]
-        public async Task CreateAsync_ValidClient_ShouldCallRepositoryAndReturnEntity()
-        {
-            // Arrange
-            var clientDto = new ClientCreateUpdateDTO { Name = "Valid Name", Email = "valid@example.com" };
-            var clientEntity = new ClientEntity { Id = 1, Name = "Valid Name", Email = "valid@example.com" };
+        // Assert
+        Assert.False(result.IsSuccess);
+        Assert.Equal(CommomErrors.Email.InvalidEmail(client.Email), result.Error);
+    }
 
-            _clientRepository
-                .Setup(repo => repo.CreateAsync(It.IsAny<ClientEntity>()))
-                .ReturnsAsync(clientEntity);
+    [Fact]
+    public void Create_ValidClient_ShouldCallRepositoryAndReturnEntity()
+    {
+        // Arrange
+        var clientDto = new ClientCreateUpdateDTO { Name = "Valid Name", Email = "valid@example.com" };
+        var clientEntity = new ClientEntity { Id = 1, Name = "Valid Name", Email = "valid@example.com" };
 
-            // Act
-            var result = await _clientService.CreateAsync(clientDto);
+        _clientValidator
+            .Setup(validator => validator.Validate(clientDto))
+            .Returns(clientDto);
 
-            // Assert
-            Assert.True(result.IsSuccess);
-            Assert.Equal(clientEntity, result);
-        }
+        _clientRepository
+            .Setup(repo => repo.Create(It.IsAny<ClientEntity>()))
+            .Returns(clientEntity);
 
-        [Fact]
-        public async Task UpdateAsync_ClientNotFound_ShouldReturnError()
-        {
-            // Arrange
-            _clientRepository
-                .Setup(repo => repo.FindAsync(It.IsAny<long>()))
-                .ReturnsAsync((ClientEntity?)null);
+        // Act
+        var result = _clientService.Create(clientDto);
 
-            var clientDto = new ClientCreateUpdateDTO { Name = "Updated Name", Email = "updated@example.com" };
+        // Assert
+        Assert.True(result.IsSuccess);
+        Assert.Equal(clientEntity, result.Value);
+    }
 
-            // Act
-            var result = await _clientService.UpdateAsync(1, clientDto);
+    [Fact]
+    public void Update_ClientNotFound_ShouldReturnError()
+    {
+        // Arrange
+        var clientDto = new ClientCreateUpdateDTO { Name = "Updated Name", Email = "updated@example.com" };
 
-            // Assert
-            Assert.False(result.IsSuccess);
-            Assert.Equal(ClientErrors.NotFound, result);
-        }
+        _clientValidator
+            .Setup(validator => validator.Validate(clientDto))
+            .Returns(clientDto);
 
-        [Fact]
-        public async Task DeleteAsync_InvalidId_ShouldReturnError()
-        {
-            // Act
-            var result = await _clientService.DeleteAsync(0);
+        _clientRepository
+            .Setup(repo => repo.Find(It.IsAny<long>()))
+            .Returns((ClientEntity?)null);
 
-            // Assert
-            Assert.False(result.IsSuccess);
-            Assert.Equal(ClientErrors.InvalidId(0), result);
-        }
+        // Act
+        var result = _clientService.Update(1, clientDto);
 
-        [Fact]
-        public async Task DeleteAsync_ClientNotFound_ShouldReturnError()
-        {
-            // Arrange
-            _clientRepository.Setup(repo => repo.DeleteAsync(It.IsAny<long>()))
-                .ReturnsAsync((long?)null);
+        // Assert
+        Assert.False(result.IsSuccess);
+        Assert.Equal(ClientErrors.NotFound, result.Error);
+    }
 
-            // Act
-            var result = await _clientService.DeleteAsync(1);
+    [Fact]
+    public void Delete_InvalidId_ShouldReturnError()
+    {
+        // Act
+        var result = _clientService.Delete(0);
 
-            // Assert
-            Assert.False(result.IsSuccess);
-            Assert.Equal(ClientErrors.NotFound, result.Error);
-        }
+        // Assert
+        Assert.False(result.IsSuccess);
+        Assert.Equal(ClientErrors.InvalidId(0), result.Error);
+    }
+
+    [Fact]
+    public void Delete_ClientNotFound_ShouldReturnError()
+    {
+        // Arrange
+        _clientRepository
+            .Setup(repo => repo.Delete(It.IsAny<long>()))
+            .Returns((long?)null);
+
+        // Act
+        var result = _clientService.Delete(1);
+
+        // Assert
+        Assert.False(result.IsSuccess);
+        Assert.Equal(ClientErrors.NotFound, result.Error);
     }
 }

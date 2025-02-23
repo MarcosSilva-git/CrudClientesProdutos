@@ -6,10 +6,14 @@ namespace CrudClientesProdutos.Server.Extensions;
 internal static class ProblemDetailsExtension
 {
     public static ProblemDetails ToProblemDetails(this Error error)
-        => new ProblemDetails()
+    {
+
+
+        return new ProblemDetails()
         {
-            Status = error.StatusCode,
+            Status = 400,
             Title = error.Title,
             Detail = error.Description,
         };
+    }
 }
