@@ -1,10 +1,10 @@
-﻿using CrudClientesProdutos.Application.DTOs.Client;
+﻿using CrudClientesProdutos.Application.Client.DTO;
 using CrudClientesProdutos.Domain;
 using CrudClientesProdutos.Domain.Abstractions;
 using CrudClientesProdutos.Domain.Client;
 using CrudClientesProdutos.Domain.Clients;
 
-namespace CrudClientesProdutos.Application.Services.Client;
+namespace CrudClientesProdutos.Application.Client;
 
 public class ClientService(IClientRepository clientRepository) : IClientService
 {
@@ -20,7 +20,7 @@ public class ClientService(IClientRepository clientRepository) : IClientService
             return ClientErrors.InvalidNameSize;
 
         if (!client.Email.Contains("@"))
-            return CommomErrors.InvalidEmail;
+            return ClientErrors.InvalidEmail(client.Email);
 
         var clientEntity = new ClientEntity
         {
@@ -39,7 +39,7 @@ public class ClientService(IClientRepository clientRepository) : IClientService
             return ClientErrors.InvalidNameSize;
 
         if (!client.Email.Contains("@"))
-            return CommomErrors.InvalidEmail;
+            return ClientErrors.InvalidEmail(client.Email);
 
         var clientEntity = await _clientRepository.FindAsync(id);
 
@@ -57,7 +57,7 @@ public class ClientService(IClientRepository clientRepository) : IClientService
     public async Task<Result<long, Error>> DeleteAsync(long clientId)
     {
         if (clientId <= 0)
-            return CommomErrors.InvalidId;
+            return ClientErrors.InvalidId(clientId);
 
         var id = await _clientRepository.DeleteAsync(clientId);
 

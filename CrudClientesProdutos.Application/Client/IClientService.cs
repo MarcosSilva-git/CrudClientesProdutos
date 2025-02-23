@@ -1,8 +1,8 @@
-﻿using CrudClientesProdutos.Application.DTOs.Client;
+﻿using CrudClientesProdutos.Application.Client.DTO;
 using CrudClientesProdutos.Domain.Abstractions;
 using CrudClientesProdutos.Domain.Clients;
 
-namespace CrudClientesProdutos.Application.Services.Client;
+namespace CrudClientesProdutos.Application.Client;
 
 public interface IClientService
 {

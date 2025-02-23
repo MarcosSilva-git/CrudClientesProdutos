@@ -1,6 +1,5 @@
-﻿using CrudClientesProdutos.Application.DTOs.Client;
-using CrudClientesProdutos.Application.Services.Client;
-using CrudClientesProdutos.Domain;
+﻿using CrudClientesProdutos.Application.Client;
+using CrudClientesProdutos.Application.Client.DTO;
 using CrudClientesProdutos.Domain.Client;
 using CrudClientesProdutos.Domain.Clients;
 using Moq;
@@ -58,7 +57,7 @@ namespace CrudClientesProdutos.UnitTests.Services
 
             // Assert
             Assert.False(result.IsSuccess);
-            Assert.Equal(CommomErrors.InvalidEmail, result);
+            Assert.Equal(ClientErrors.InvalidEmail(client.Email), result);
         }
 
         [Fact]
@@ -106,7 +105,7 @@ namespace CrudClientesProdutos.UnitTests.Services
 
             // Assert
             Assert.False(result.IsSuccess);
-            Assert.Equal(CommomErrors.InvalidId, result);
+            Assert.Equal(ClientErrors.InvalidId(0), result);
         }
 
         [Fact]

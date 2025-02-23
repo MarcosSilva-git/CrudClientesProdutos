@@ -1,6 +1,6 @@
-﻿using CrudClientesProdutos.Application.DTOs.Product;
-using CrudClientesProdutos.Application.Services.Product;
-using CrudClientesProdutos.Domain;
+﻿using CrudClientesProdutos.Application.Product;
+using CrudClientesProdutos.Application.Product.DTO;
+using CrudClientesProdutos.Domain.Client;
 using CrudClientesProdutos.Domain.Product;
 using CrudClientesProdutos.Domain.Products;
 using Moq;
@@ -122,7 +122,7 @@ namespace CrudClientesProdutos.UnitTests.Services
 
             // Assert
             Assert.True(result.IsFailure);
-            Assert.Equal(CommomErrors.InvalidId, result.Error);
+            Assert.Equal(ClientErrors.InvalidId(0), result.Error);
         }
     }
 

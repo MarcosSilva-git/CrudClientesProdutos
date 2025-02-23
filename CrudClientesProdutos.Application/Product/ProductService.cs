@@ -1,11 +1,11 @@
-﻿using CrudClientesProdutos.Application.DTOs.Product;
-using CrudClientesProdutos.Domain.Product;
+﻿using CrudClientesProdutos.Domain.Product;
 using CrudClientesProdutos.Domain.Products;
 using CrudClientesProdutos.Domain.Abstractions;
 using CrudClientesProdutos.Domain;
 using CrudClientesProdutos.Domain.Client;
+using CrudClientesProdutos.Application.Product.DTO;
 
-namespace CrudClientesProdutos.Application.Services.Product;
+namespace CrudClientesProdutos.Application.Product;
 
 public class ProductService(IProductRepository productRepository) : IProductService
 {
@@ -52,7 +52,7 @@ public class ProductService(IProductRepository productRepository) : IProductServ
     public async Task<Result<long, Error>> DeleteAsync(long productId)
     {
         if (productId <= 0)
-            return CommomErrors.InvalidId;
+            return ClientErrors.InvalidId(productId);
 
         var id = await _productRepository.DeleteAsync(productId);
         

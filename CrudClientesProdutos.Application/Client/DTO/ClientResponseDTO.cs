@@ -1,6 +1,6 @@
 ﻿using CrudClientesProdutos.Domain.Clients;
 
-namespace CrudClientesProdutos.Application.DTOs.Client;
+namespace CrudClientesProdutos.Application.Client.DTO;
 
 public class ClientResponseDTO
 {

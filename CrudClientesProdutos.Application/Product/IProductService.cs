@@ -1,7 +1,8 @@
-﻿using CrudClientesProdutos.Application.DTOs.Product;
+﻿using CrudClientesProdutos.Application.Product.DTO;
 using CrudClientesProdutos.Domain.Abstractions;
+using CrudClientesProdutos.Domain.Products;
 
-namespace CrudClientesProdutos.Domain.Products;
+namespace CrudClientesProdutos.Application.Product;
 
 public interface IProductService
 {

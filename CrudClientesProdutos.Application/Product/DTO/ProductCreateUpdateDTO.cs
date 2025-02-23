@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CrudClientesProdutos.Application.DTOs.Product;
+namespace CrudClientesProdutos.Application.Product.DTO;
 
 public record ProductCreateUpdateDTO
 {

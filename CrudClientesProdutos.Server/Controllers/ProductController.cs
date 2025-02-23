@@ -1,5 +1,5 @@
-﻿using CrudClientesProdutos.Application.DTOs.Product;
-using CrudClientesProdutos.Domain.Products;
+﻿using CrudClientesProdutos.Application.Product;
+using CrudClientesProdutos.Application.Product.DTO;
 using CrudClientesProdutos.Server.Controllers.Generics;
 using CrudClientesProdutos.Server.Extensions;
 using Microsoft.AspNetCore.Mvc;
