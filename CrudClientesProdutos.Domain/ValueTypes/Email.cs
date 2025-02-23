@@ -26,7 +26,7 @@ public struct Email
         if (TryParse(value, out var email))
             return email;
 
-        throw new ArgumentException($"Invalid email format: \"{value}\".", nameof(value));
+        throw new ArgumentException($"Invalid email format: '{value}'.", nameof(value));
     }
 
     public static bool TryParse(string value, out Email email)

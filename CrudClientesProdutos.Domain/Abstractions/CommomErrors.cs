@@ -12,4 +12,12 @@ public static class CommomErrors
                     "CommomError.Email.InvalidEmail", 
                     $"The email '{email}' is not valid.");
     }
+
+    public static class PhoneNumber 
+    {
+        public static Error InvalidPhoneNumber(string phoneNumber)
+               => new(
+                   "CommomError.PhoneNumber.InvalidPhoneNumber",
+                   $"The phone number '{phoneNumber}' is not valid.");
+    }
 }
