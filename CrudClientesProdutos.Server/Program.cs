@@ -33,6 +33,16 @@ builder.Services.AddServices(builder.Configuration);
 builder.Services.AddSwaggerGen();
 builder.Services.ConfigureOptions<SwaggerConfiguration>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAnyOrigin",
+        policy => policy
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
+
+
 var app = builder.Build();
 
 app.UseDefaultFiles();
@@ -51,6 +61,7 @@ if (app.Environment.IsDevelopment())
         }
     });
 }
+app.UseCors("AllowAnyOrigin");
 
 app.UseHttpsRedirection();
 
