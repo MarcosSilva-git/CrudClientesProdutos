@@ -5,7 +5,7 @@ VisualStudioVersion = 17.13.35818.85
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "CrudClientesProdutos.Client", "crudclientesprodutos.client\CrudClientesProdutos.Client.esproj", "{55443CD6-D77B-BDC4-6F16-6FF70D975842}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrudClientesProdutos.Server", "CrudClientesProdutos.Server\CrudClientesProdutos.Server.csproj", "{4CB46B1B-8F7F-4B0A-806C-260F5B072FE2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrudClientesProdutos.API", "CrudClientesProdutos.Server\CrudClientesProdutos.API.csproj", "{4CB46B1B-8F7F-4B0A-806C-260F5B072FE2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Databases", "Databases", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
