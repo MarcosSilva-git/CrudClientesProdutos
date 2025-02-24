@@ -4,7 +4,7 @@ namespace CrudClientesProdutos.Application.Features.Client.DTO;
 
 public record ClientCreateUpdateDTO 
 {
-    [Required, MinLength(3), StringLength(100)]
+    [Required]
     public string Name { get; init; } = string.Empty;
     
     [Required]

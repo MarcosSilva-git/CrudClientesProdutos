@@ -15,8 +15,8 @@ public class ClientResponseDTO
         {
             Id = entity.Id,
             Name = entity.Name,
-            Email = entity.Email.ToString(),
-            PhoneNumber = entity.PhoneNumber.ToString(),
+            Email = entity.Email,
+            PhoneNumber = entity.PhoneNumber,
             Active = entity.Active
         };
 }
