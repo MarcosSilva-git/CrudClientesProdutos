@@ -1,4 +1,3 @@
-using Asp.Versioning.ApiExplorer;
 using CrudClientesProdutos.Server.Configurations;
 using CrudClientesProdutos.Server.Middlewares;
 
@@ -18,19 +17,10 @@ builder.Services.AddProblemDetails(option =>
     };
 });
 
-
-builder.Services.AddApiVersioning()
-    .AddMvc()
-    .AddApiExplorer(setup =>
-    {
-        setup.SubstituteApiVersionInUrl = true;
-    });
-
 builder.Services.AddDbContexts(builder.Configuration);
 builder.Services.AddServices(builder.Configuration);
 
 builder.Services.AddSwaggerGen();
-builder.Services.ConfigureOptions<SwaggerConfiguration>();
 
 builder.Services.AddCors(options =>
 {
@@ -53,11 +43,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
-        var version = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
-        foreach (var description in version.ApiVersionDescriptions)
-        {
-            options.SwaggerEndpoint($"/swagger/{description.ApiVersion}/swagger.json", $"API V{description.ApiVersion}");
-        }
+        options.SwaggerEndpoint($"/swagger/v1/swagger.json", $"API");
     });
 }
 app.UseCors("AllowAnyOrigin");
