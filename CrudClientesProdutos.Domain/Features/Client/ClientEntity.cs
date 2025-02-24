@@ -12,10 +12,10 @@ public class ClientEntity : IEntity
 
     private ClientEntity() { }
 
-    public ClientEntity(NameType name, EmailType email, PhoneNumberType? phoneNumber)
+    public ClientEntity(string name, string email, string? phoneNumber)
     {
         Name = name;
         Email = email;
-        PhoneNumber = phoneNumber;
+        PhoneNumber = phoneNumber is null ? (PhoneNumberType?)null : new PhoneNumberType(phoneNumber);
     }
 }

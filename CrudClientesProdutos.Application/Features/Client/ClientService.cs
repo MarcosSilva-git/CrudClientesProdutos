@@ -2,6 +2,7 @@
 using CrudClientesProdutos.Domain.Abstractions;
 using CrudClientesProdutos.Domain.Abstractions.Repositories;
 using CrudClientesProdutos.Domain.Features.Client;
+using CrudClientesProdutos.Domain.ValueTypes;
 
 namespace CrudClientesProdutos.Application.Features.Client;
 
@@ -44,8 +45,7 @@ public class ClientService(
 
         clientEntity.Name = client.Name;
         clientEntity.Email = client.Email;
-        clientEntity.PhoneNumber = client.PhoneNumber;
-        clientEntity.Active = client.Active;
+        clientEntity.PhoneNumber = client.PhoneNumber!;
 
         return _clientRepository.Update(clientEntity);
     }

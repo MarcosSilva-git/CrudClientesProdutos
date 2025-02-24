@@ -3,35 +3,53 @@ using CrudClientesProdutos.Application.Features.Client;
 using CrudClientesProdutos.Domain.Abstractions;
 using CrudClientesProdutos.Domain.Features.Client;
 using Moq;
+using CrudClientesProdutos.Domain.Abstractions.Repositories;
+using CrudClientesProdutos.UnitTests.Fakes;
 
 namespace CrudClientesProdutos.UnitTests.Features.Client;
 
 public class ClientServiceTests
 {
+    private readonly Mock<IPagedEntity<ClientEntity>> _pagedEntity;
     private readonly Mock<IClientRepository> _clientRepository;
     private readonly Mock<IClientValidator> _clientValidator;
     private readonly ClientService _clientService;
 
     public ClientServiceTests()
     {
+        _pagedEntity = new Mock<IPagedEntity<ClientEntity>>();
         _clientRepository = new Mock<IClientRepository>();
         _clientValidator = new Mock<IClientValidator>();
         _clientService = new ClientService(_clientRepository.Object, _clientValidator.Object);
     }
 
     [Fact]
-    public void GetAll_ShouldReturnClients()
+    public void GetPaged_ShouldReturnClients()
     {
         // Arrange
-        var clients = new List<ClientEntity> { new ClientEntity { Id = 1, Name = "John Doe", Email = "john@example.com" } };
-        _clientRepository.Setup(repo => repo.GetAll()).Returns(clients);
+        var clients = new List<ClientEntity> 
+        { 
+            new ClientEntity("john Doe", "john@example.com", null)
+        };
+
+        var pagedEntity = new FakePagedEntity<ClientEntity>
+        {
+            Items = clients,
+            TotalItems = 1,
+            Page = 1,
+            PageSize = 1,
+            TotalPages = 1
+        };
+
+        _clientRepository.Setup(repo => repo.GetPaged(1, 1))
+            .Returns(pagedEntity);
 
         // Act
-        var result = _clientService.GetPaged();
+        var result = _clientService.GetPaged(1, 1);
 
         // Assert
         Assert.NotNull(result);
-        Assert.Single(result);
+        Assert.Single(result.Items);
     }
 
     [Fact]
@@ -75,7 +93,7 @@ public class ClientServiceTests
     {
         // Arrange
         var clientDto = new ClientCreateUpdateDTO { Name = "Valid Name", Email = "valid@example.com" };
-        var clientEntity = new ClientEntity { Id = 1, Name = "Valid Name", Email = "valid@example.com" };
+        var clientEntity = new ClientEntity("Valid Name", "valid@exemple.com", null);
 
         _clientValidator
             .Setup(validator => validator.Validate(clientDto))
