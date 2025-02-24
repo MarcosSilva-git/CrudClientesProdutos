@@ -11,6 +11,4 @@ public record ClientCreateUpdateDTO
     public string Email { get; init; } = string.Empty;
 
     public string PhoneNumber { get; init; } = string.Empty;
-
-    public bool Active { get; init; } = true;
 }

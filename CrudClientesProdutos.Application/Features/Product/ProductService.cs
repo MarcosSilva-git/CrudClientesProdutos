@@ -52,7 +52,7 @@ public class ProductService(
     public Result<long, Error> Delete(long productId)
     {
         if (productId <= 0)
-            return CommomErrors.InvalidId(productId);
+            return ProductErrors.InvalidId(productId);
 
         var id = _productRepository.Delete(productId);
         

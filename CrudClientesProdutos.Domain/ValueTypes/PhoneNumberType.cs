@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using CrudClientesProdutos.Domain.Abstractions;
+using System.Text.RegularExpressions;
 
 namespace CrudClientesProdutos.Domain.ValueTypes;
 
@@ -31,7 +32,9 @@ public record struct PhoneNumberType
             return phoneNumber!.Value;
         }
 
-        throw new ArgumentException($"Invalid phone number format: '{value}'.", nameof(value));
+        throw new ArgumentException(
+            CommomErrors.PhoneNumber.InvalidPhoneNumber(value).Description, 
+            nameof(value));
     }
 
     public static bool TryParse(string value, out PhoneNumberType? phoneNumber)

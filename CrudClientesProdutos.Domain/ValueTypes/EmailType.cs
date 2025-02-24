@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using CrudClientesProdutos.Domain.Abstractions;
+using System.Text.RegularExpressions;
 
 namespace CrudClientesProdutos.Domain.ValueTypes;
 
@@ -25,7 +26,9 @@ public record struct EmailType
         if (TryParse(value, out var email))
             return email!.Value;
 
-        throw new ArgumentException($"Invalid email format: '{value}'.", nameof(value));
+        throw new ArgumentException(
+            CommomErrors.Email.InvalidEmail(value).Description, 
+            nameof(value));
     }
 
     public static bool TryParse(string value, out EmailType? email)

@@ -115,6 +115,6 @@ public class ProductServiceTests
         var result = _productService.Delete(0);
 
         Assert.True(result.IsFailure);
-        Assert.Equal(CommomErrors.InvalidId(0), result.Error);
+        Assert.Equal(ProductErrors.InvalidId(0), result.Error);
     }
 }

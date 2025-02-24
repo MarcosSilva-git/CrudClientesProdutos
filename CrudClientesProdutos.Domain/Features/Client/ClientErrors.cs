@@ -5,7 +5,7 @@ namespace CrudClientesProdutos.Domain.Features.Client;
 public static class ClientErrors
 {
     public static Error InvalidId(long id)
-        => new("Client.InvalidId", $"Invalid Id \"{id}\"");
+        => new("Client.InvalidId", $"Invalid Id |{id}|");
 
     public static readonly Error NotFound
         = new Error("Client.NotFound", "Client not found", ErrorEnum.NotFounError);
