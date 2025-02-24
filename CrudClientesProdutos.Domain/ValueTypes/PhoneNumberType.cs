@@ -1,4 +1,5 @@
 ﻿using CrudClientesProdutos.Domain.Abstractions;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
 namespace CrudClientesProdutos.Domain.ValueTypes;
@@ -17,8 +18,8 @@ public record struct PhoneNumberType
         _phoneNumber = value;
     }
 
-    public static implicit operator PhoneNumberType(string value)
-        => Parse(value);
+    public static implicit operator PhoneNumberType(string value) => Parse(value);
+    public static implicit operator string(PhoneNumberType phoneNumber) => phoneNumber._phoneNumber;
 
     public override string ToString()
     {

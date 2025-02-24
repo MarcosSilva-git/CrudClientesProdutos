@@ -15,11 +15,12 @@ public record struct EmailType
         _email = email;
     }
 
-    public static implicit operator EmailType(string value)
-        => Parse(value);
+    public static implicit operator EmailType(string value) => Parse(value);
+    public static implicit operator string(EmailType email) => email._email;
 
     public override string ToString()
         => _email;
+
 
     public static EmailType Parse(string value)
     {
