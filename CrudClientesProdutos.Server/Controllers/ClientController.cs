@@ -55,7 +55,7 @@ public class ClientController(IClientService clientService) : ApplicationV1Contr
         var result = _clientService.Delete(id);
 
         return result.Match(
-            id => Ok(id), 
+            id => NoContent(), 
             error => error.ToIActionResult(this));
     }
 }

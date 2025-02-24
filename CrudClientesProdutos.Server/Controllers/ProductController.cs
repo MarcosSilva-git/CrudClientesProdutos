@@ -56,7 +56,7 @@ public class ProductController(IProductService productService) : ApplicationV1Co
         var result = _productService.Delete(id);
 
         return result.Match(
-            id => Ok(id),
+            _ => NoContent(),
             error => error.ToIActionResult(this));
     }
 }
