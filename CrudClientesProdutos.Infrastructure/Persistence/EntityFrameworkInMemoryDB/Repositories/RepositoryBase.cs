@@ -13,12 +13,14 @@ public class RepositoryBase<T>(
     public virtual IPagedEntity<T> GetPaged(int take = 10, int page = 1)
     {
         if (take <= 0) take = 1;
+        if (take > 50) take = 50;
+
         if (page <= 0) page = 1;
 
         var totalItems = _dbSet.Count();
-        var totalPages = (totalItems / take) + 1;
+        var totalPages = totalItems == 0 ? 1 : (totalItems / take) + 1;
 
-        if (totalPages > page)
+        if (totalPages < page)
             page = totalPages;
 
         var items =  _dbSet
@@ -31,7 +33,7 @@ public class RepositoryBase<T>(
             Items = items,
             TotalItems = totalItems,
             Page = page,
-            PageSize = totalItems / totalPages,
+            PageSize = items.Count,
             TotalPages = totalPages,
         }; 
     }
