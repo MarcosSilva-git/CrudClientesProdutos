@@ -1,4 +1,4 @@
-﻿using CrudClientesProdutos.InMemory;
+﻿using CrudClientesProdutos.Infrastructure.Persistence.EntityFrameworkInMemoryDB;
 using Microsoft.EntityFrameworkCore;
 
 namespace CrudClientesProdutos.Server.Configurations;

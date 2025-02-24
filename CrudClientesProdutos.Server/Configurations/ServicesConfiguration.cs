@@ -1,8 +1,8 @@
-﻿using CrudClientesProdutos.Application.Entities.Client;
-using CrudClientesProdutos.Application.Entities.Product;
-using CrudClientesProdutos.Domain.Entities.Client;
-using CrudClientesProdutos.Domain.Entities.Product;
-using CrudClientesProdutos.InMemory.Repositories;
+﻿using CrudClientesProdutos.Application.Features.Client;
+using CrudClientesProdutos.Application.Features.Product;
+using CrudClientesProdutos.Domain.Features.Client;
+using CrudClientesProdutos.Domain.Features.Product;
+using CrudClientesProdutos.Infrastructure.Persistence.EntityFrameworkInMemoryDB.Repositories;
 
 namespace CrudClientesProdutos.Server.Configurations;
 
