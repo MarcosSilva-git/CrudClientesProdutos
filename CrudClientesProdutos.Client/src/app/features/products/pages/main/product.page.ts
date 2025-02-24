@@ -1,12 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../../../products.service'
-
-type Products = {
-  id: number,
-  name: string,
-  price: number,
-  stock: number
-}
+import { Product } from '../../models/product.type';
 
 @Component({
   selector: 'app-product-page',
@@ -17,7 +11,7 @@ type Products = {
 export class ProductPage implements OnInit {
   constructor(private _productService : ProductsService) { }
   
-  products : Products[] = []
+  products : Product[] = []
 
   ngOnInit(): void {
     this._productService.getProducts().subscribe({
