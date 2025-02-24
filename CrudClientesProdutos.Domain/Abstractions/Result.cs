@@ -1,6 +1,6 @@
 ﻿namespace CrudClientesProdutos.Domain.Abstractions;
 
-public readonly struct Result<T, E> 
+public readonly record struct Result<T, E> 
 {
     public readonly bool IsSuccess;
     public bool IsFailure { get => !IsSuccess; }

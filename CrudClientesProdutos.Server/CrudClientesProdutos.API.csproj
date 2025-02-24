@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <SpaRoot>..\crudclientesprodutos.client</SpaRoot>
+    <SpaRoot>..\CrudClientesProdutos.client</SpaRoot>
     <SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
     <SpaProxyServerUrl>https://localhost:53857</SpaProxyServerUrl>
   </PropertyGroup>
@@ -25,7 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CrudClientesProdutos.Application\CrudClientesProdutos.Application.csproj" />
-    <ProjectReference Include="..\crudclientesprodutos.client\CrudClientesProdutos.Client.esproj">
+    <ProjectReference Include="..\CrudClientesProdutos.client\CrudClientesProdutos.Client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\CrudClientesProdutos.Domain\CrudClientesProdutos.Domain.csproj" />

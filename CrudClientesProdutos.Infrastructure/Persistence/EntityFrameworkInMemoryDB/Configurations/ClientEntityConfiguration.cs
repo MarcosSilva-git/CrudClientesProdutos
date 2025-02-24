@@ -17,6 +17,6 @@ internal class ClientEntityConfiguration : IEntityTypeConfiguration<ClientEntity
             .Property(c => c.Email)
             .HasConversion(
                 email => email.ToString(),
-                value => Email.Parse(value));
+                value => EmailType.Parse(value));
     }
 }

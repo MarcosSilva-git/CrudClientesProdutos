@@ -9,7 +9,7 @@ import { Product } from '../../models/product.type';
   styleUrl: './product.page.css'
 })
 export class ProductPage implements OnInit {
-  constructor(private _productService : ProductsService) { }
+  conrecord structor(private _productService : ProductsService) { }
   
   products : Product[] = []
 

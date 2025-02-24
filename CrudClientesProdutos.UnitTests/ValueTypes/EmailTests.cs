@@ -26,7 +26,7 @@ public class EmailTests
     {
         foreach (var phoneNumber in ValidEmails)
         {
-            var parsedPhoneNumber = Email.Parse(phoneNumber);
+            var parsedPhoneNumber = EmailType.Parse(phoneNumber);
             Assert.Equal(phoneNumber, parsedPhoneNumber.ToString());
         }
     }
@@ -36,7 +36,7 @@ public class EmailTests
     {
         foreach (var phoneNumber in InValidEmails)
         {
-            Assert.Throws<ArgumentException>(() => Email.Parse(phoneNumber));
+            Assert.Throws<ArgumentException>(() => EmailType.Parse(phoneNumber));
         }
     }
 }

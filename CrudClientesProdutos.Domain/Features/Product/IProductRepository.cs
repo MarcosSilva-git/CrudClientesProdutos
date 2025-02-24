@@ -1,4 +1,4 @@
-﻿using CrudClientesProdutos.Domain.Abstractions;
+﻿using CrudClientesProdutos.Domain.Abstractions.Repositories;
 
 namespace CrudClientesProdutos.Domain.Features.Product;
 

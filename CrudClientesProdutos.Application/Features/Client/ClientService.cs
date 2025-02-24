@@ -1,5 +1,6 @@
 ﻿using CrudClientesProdutos.Application.Features.Client.DTO;
 using CrudClientesProdutos.Domain.Abstractions;
+using CrudClientesProdutos.Domain.Abstractions.Repositories;
 using CrudClientesProdutos.Domain.Features.Client;
 
 namespace CrudClientesProdutos.Application.Features.Client;
@@ -11,9 +12,8 @@ public class ClientService(
     private readonly IClientRepository _clientRepository = clientRepository;
     private readonly IClientValidator _clientValidator = clientValidator;
 
-    public IEnumerable<ClientEntity> GetAll()
-         => _clientRepository.GetAll();
-
+    public IPagedEntity<ClientEntity> GetPaged(int take, int page)
+         => _clientRepository.GetPaged(take, page);
 
     public Result<ClientEntity, Error> Create(ClientCreateUpdateDTO client)
     {
@@ -22,13 +22,10 @@ public class ClientService(
         if (validationResult.IsFailure)
             return validationResult.Error;
 
-        var clientEntity = new ClientEntity
-        {
-            Name = client.Name,
-            Email = client.Email,
-            PhoneNumber = client.PhoneNumber,
-            Active = client.Active
-        };
+        var clientEntity = new ClientEntity(
+            client.Name, 
+            client.Email, 
+            client.PhoneNumber);
 
         return _clientRepository.Create(clientEntity);
     }

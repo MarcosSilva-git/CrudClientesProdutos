@@ -1,5 +1,8 @@
-﻿using CrudClientesProdutos.Application.Features.Product;
+﻿using CrudClientesProdutos.Application.DTO;
+using CrudClientesProdutos.Application.Features.Client.DTO;
+using CrudClientesProdutos.Application.Features.Product;
 using CrudClientesProdutos.Application.Features.Product.DTO;
+
 using CrudClientesProdutos.Server.Controllers.Generics;
 using CrudClientesProdutos.Server.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +14,20 @@ public class ProductController(IProductService productService) : ApplicationV1Co
     private readonly IProductService _productService = productService;
 
     [HttpGet]
-    public ActionResult<IEnumerable<ProductResponseDTO>> Get()
+    public ActionResult<PagedResponseDTO<ProductResponseDTO>> Get(
+        [FromQuery] int take = 10,
+        [FromQuery] int page = 1)
     {
-        var products = _productService.GetAll();
-        return Ok(products.Select(ProductResponseDTO.FromEntity));
+        var pagedEntity = _productService.GetPaged(take, page);
+
+        return Ok(new PagedResponseDTO<ProductResponseDTO>()
+        {
+            Items = pagedEntity.Items.Select(ProductResponseDTO.FromEntity),
+            Page = pagedEntity.Page,
+            PageSize = pagedEntity.PageSize,
+            TotalItems = pagedEntity.TotalItems,
+            TotalPages = pagedEntity.TotalPages
+        });
     }
 
     [HttpPost]

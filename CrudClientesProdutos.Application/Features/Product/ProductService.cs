@@ -1,6 +1,7 @@
 ﻿using CrudClientesProdutos.Domain.Abstractions;
 using CrudClientesProdutos.Application.Features.Product.DTO;
 using CrudClientesProdutos.Domain.Features.Product;
+using CrudClientesProdutos.Domain.Abstractions.Repositories;
 
 namespace CrudClientesProdutos.Application.Features.Product;
 
@@ -11,8 +12,8 @@ public class ProductService(
     private readonly IProductRepository _productRepository = productRepository;
     private readonly IProductValidator _productValidator = productValidator;
 
-    public IEnumerable<ProductEntity> GetAll()
-         => _productRepository.GetAll();
+    public IPagedEntity<ProductEntity> GetPaged(int take, int page)
+         => _productRepository.GetPaged(take, page);
 
     public Result<ProductEntity, Error> Create(ProductCreateUpdateDTO product)
     {
@@ -21,12 +22,10 @@ public class ProductService(
         if (result.IsFailure)
             return result.Error;
 
-        var productEntity = new ProductEntity
-        {
-            Name = product.Name,
-            Stock = product.Stock,
-            Price = product.Price
-        };
+        var productEntity = new ProductEntity(
+            product.Name,
+            product.Price,
+            product.Stock);
 
         return _productRepository.Create(productEntity);
     }

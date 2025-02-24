@@ -7,7 +7,7 @@ import { Product } from './products/models/product.type';
   providedIn: 'root',
 })
 export class ProductsService {
-  constructor(private http : HttpClient) { }
+  conrecord structor(private http : HttpClient) { }
 
   getProducts() : Observable<Product[]> {
     return this.http.get<Product[]>("https://localhost:7163/api/v1/product");

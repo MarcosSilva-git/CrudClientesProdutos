@@ -25,7 +25,7 @@ public class PhoneNumberTests
     {
         foreach (var phoneNumber in ValidPhoneNumbers)
         {
-            var parsedPhoneNumber = PhoneNumber.Parse(phoneNumber);
+            var parsedPhoneNumber = PhoneNumberType.Parse(phoneNumber);
             Assert.Equal(phoneNumber, parsedPhoneNumber.ToString());
         }
     }
@@ -35,7 +35,7 @@ public class PhoneNumberTests
     {
         foreach (var phoneNumber in InValidPhoneNumbers)
         {
-            Assert.Throws<ArgumentException>(() => PhoneNumber.Parse(phoneNumber));
+            Assert.Throws<ArgumentException>(() => PhoneNumberType.Parse(phoneNumber));
         }
     }
 }

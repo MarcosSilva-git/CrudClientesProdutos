@@ -9,8 +9,8 @@ internal static class ProblemDetailsExtension
     {
         var statusCode = error.Type switch
         {
-            ErrorType.DomainRuleError => 400,
-            ErrorType.NotFounError => 404,
+            ErrorEnum.DomainRuleError => 400,
+            ErrorEnum.NotFounError => 404,
             _ => throw new ArgumentOutOfRangeException(nameof(error.Type),
                 $"An error occurred while trying to convert the error type into a status code. " +
                 $"ErrorType \"{error.Type}\" is not recognized.")

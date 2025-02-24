@@ -1,5 +1,7 @@
-﻿using CrudClientesProdutos.Application.Features.Client;
+﻿using CrudClientesProdutos.Application.DTO;
+using CrudClientesProdutos.Application.Features.Client;
 using CrudClientesProdutos.Application.Features.Client.DTO;
+using CrudClientesProdutos.Application.Features.Product.DTO;
 using CrudClientesProdutos.Server.Controllers.Generics;
 using CrudClientesProdutos.Server.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -11,11 +13,20 @@ public class ClientController(IClientService clientService) : ApplicationV1Contr
     private readonly IClientService _clientService = clientService;
 
     [HttpGet]
-    public ActionResult<IEnumerable<ClientResponseDTO>> Get()
+    public ActionResult<PagedResponseDTO<ClientResponseDTO>> Get(
+        [FromQuery] int take = 10,
+        [FromQuery] int page = 1)
     {
-        var clients = _clientService.GetAll();
+        var pagedEntity = _clientService.GetPaged(take, page);
 
-        return Ok(clients.Select(ClientResponseDTO.FromEntity));
+        return Ok(new PagedResponseDTO<ClientResponseDTO>()
+        {
+            Items = pagedEntity.Items.Select(ClientResponseDTO.FromEntity),
+            Page = pagedEntity.Page,
+            PageSize = pagedEntity.PageSize,
+            TotalItems = pagedEntity.TotalItems,
+            TotalPages = pagedEntity.TotalPages
+        });
     }
 
     [HttpPost]

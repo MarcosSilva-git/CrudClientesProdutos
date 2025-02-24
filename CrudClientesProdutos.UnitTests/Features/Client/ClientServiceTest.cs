@@ -27,7 +27,7 @@ public class ClientServiceTests
         _clientRepository.Setup(repo => repo.GetAll()).Returns(clients);
 
         // Act
-        var result = _clientService.GetAll();
+        var result = _clientService.GetPaged();
 
         // Assert
         Assert.NotNull(result);

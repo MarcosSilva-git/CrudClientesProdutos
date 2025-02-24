@@ -2,23 +2,21 @@
 
 namespace CrudClientesProdutos.Domain.ValueTypes;
 
-public struct PhoneNumber
+public record struct PhoneNumberType
 {
     private readonly string _phoneNumber;
-
-    public static readonly PhoneNumber Empty = new PhoneNumber("");
 
     private static readonly Dictionary<string, string> PhonePatterns = new()
     {
         { "pt-BR", @"^\+55\s?\d{2}\s?\d{5}-?\d{4}$" }
     };
 
-    public PhoneNumber(string value)
+    public PhoneNumberType(string value)
     {
         _phoneNumber = value;
     }
 
-    public static implicit operator PhoneNumber(string value)
+    public static implicit operator PhoneNumberType(string value)
         => Parse(value);
 
     public override string ToString()
@@ -26,21 +24,21 @@ public struct PhoneNumber
         return _phoneNumber;
     }
 
-    public static PhoneNumber Parse(string value)
+    public static PhoneNumberType Parse(string value)
     {
-        if (TryParse(value, out PhoneNumber phoneNumber))
+        if (TryParse(value, out PhoneNumberType? phoneNumber))
         {
-            return phoneNumber;
+            return phoneNumber!.Value;
         }
 
         throw new ArgumentException($"Invalid phone number format: '{value}'.", nameof(value));
     }
 
-    public static bool TryParse(string value, out PhoneNumber phoneNumber)
+    public static bool TryParse(string value, out PhoneNumberType? phoneNumber)
     {
         if (string.IsNullOrWhiteSpace(value))
         {
-            phoneNumber = Empty;
+            phoneNumber = null;
             return false;
         }
 
@@ -50,12 +48,12 @@ public struct PhoneNumber
 
             if (!isMatch)
             {
-                phoneNumber = Empty;
+                phoneNumber = null;
                 return false;
             }
         }
 
-        phoneNumber = new PhoneNumber(value);
+        phoneNumber = new PhoneNumberType(value);
         return true;
     }
 }

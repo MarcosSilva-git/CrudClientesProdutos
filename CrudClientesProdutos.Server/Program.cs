@@ -2,7 +2,6 @@ using Asp.Versioning.ApiExplorer;
 using CrudClientesProdutos.Server.Configurations;
 using CrudClientesProdutos.Server.Middlewares;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();

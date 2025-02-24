@@ -1,8 +1,8 @@
-﻿namespace CrudClientesProdutos.Domain.Abstractions;
+﻿namespace CrudClientesProdutos.Domain.Abstractions.Repositories;
 
 public interface IRepository<T> where T : IEntity 
 {
-    IEnumerable<T> GetAll();
+    IPagedEntity<T> GetPaged(int take = 10, int page = 1);
 
     T? Find(long id);
 

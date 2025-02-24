@@ -1,6 +1,6 @@
 ﻿namespace CrudClientesProdutos.Domain.Abstractions;
 
-public enum ErrorType
+public enum ErrorEnum
 {
     DomainRuleError,
     NotFounError
