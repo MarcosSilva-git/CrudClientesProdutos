@@ -1,0 +1,9 @@
+<p>product works!</p>
+
+@for (product of products?.items; track $index) 
+{
+    <p>Id: {{ product.id }}</p>
+    <p>Name: {{ product.name }}</p>
+    <p>Price: {{ product.price | currency:'BRL' }}</p>
+    <p>Stock: {{ product.stock }}</p>
+}
