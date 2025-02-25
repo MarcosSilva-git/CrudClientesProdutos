@@ -76,7 +76,7 @@ export class ProductCreateUpdateDialogComponent implements OnInit {
         .create(product)
         .subscribe({
           next: () => {
-            alert(`Pedido criado`)
+            alert(`Produto criado`)
             this.dialogRef.close(product);
           },
           error: () => {
@@ -97,7 +97,7 @@ export class ProductCreateUpdateDialogComponent implements OnInit {
       .update(product)
       .subscribe({
         next: () => {
-          alert(`Pedido atualizado`)
+          alert(`Produto atualizado`)
           this.dialogRef.close(product);
         },
         error: () => {

@@ -7,7 +7,8 @@ export class BaseService {
         const apiError: BackendError = {
             status: error.status,
             title: error.error?.title,
-            detail: error.error?.detail
+            detail: error.error?.detail,
+            errors: error.error?.errors
           };
 
         return throwError(() => apiError);

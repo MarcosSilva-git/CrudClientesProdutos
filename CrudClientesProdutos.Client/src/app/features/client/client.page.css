@@ -1,0 +1,17 @@
+.create-button {
+   display: flex;
+   flex-direction: row-reverse;
+   margin-right: 1rem;
+}
+
+table {
+   margin-top: 1rem;
+}
+
+.field {
+   text-align: center;
+}
+
+.actions {
+   text-align: end;
+}
