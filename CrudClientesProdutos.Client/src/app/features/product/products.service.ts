@@ -10,6 +10,8 @@ import { BaseService } from '../../core/services/base.service'
   providedIn: 'root',
 })
 export class ProductsService extends BaseService {
+  private url: string = `${environment.backend.apiUrl}/product`
+
   constructor(private http : HttpClient) { super() }
 
   getProducts(take : number = 5, page : number = 0): Observable<PagedResponse<Product>> {
@@ -18,9 +20,13 @@ export class ProductsService extends BaseService {
     .set('page', (page + 1).toString());
     
     return this.http
-      .get<PagedResponse<Product>>(`${environment.backend.apiUrl}/product`, { params })
-      .pipe(
-        catchError(this.catchProblemDetailsError)
-    );
+      .get<PagedResponse<Product>>(this.url, { params })
+      .pipe(catchError(this.catchProblemDetailsError));
   }
+
+  deleteProduct(id : number) : Observable<void> {
+    return this.http
+      .delete<void>(`${this.url}/${id}`)
+      .pipe(catchError(this.catchProblemDetailsError))
+    }
 }

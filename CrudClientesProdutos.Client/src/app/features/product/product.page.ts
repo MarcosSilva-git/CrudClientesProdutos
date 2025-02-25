@@ -33,25 +33,30 @@ export class ProductPage implements OnInit, AfterViewInit {
     this.getProducts();
   }
 
+  updateTable() {
+    if (this.paginator) {
+      this.paginator.length = this.products!.totalItems
+    }
+    this.dataSource.data = this.products!.items
+  }
+
   getProducts(pageIndex: number = 0, pageSize: number = 5): void {
     console.log(pageIndex, pageSize)
     this._productService.getProducts(pageSize, pageIndex).subscribe({
       next: (response: PagedResponse<Product>) => {
         this.products = response
-
-        console.log(this.products)
-        if (this.paginator) {
-          this.paginator.length = this.products.totalItems
-        }
-        console.log(this.paginator)
+        this.updateTable()
       },
       error: erro => console.error('Erro ao carregar produtos:', erro)
     });
   }
 
   deleteProduct(product: Product): void {
-    if (confirm(`Tem certeza que deseja excluir ${product.name}?`)) {
-      console.log('Produto excluído:', product);
-    }
+    this._productService.deleteProduct(product.id)
+      .subscribe({
+        next: () => {
+          this.getProducts(this.paginator!.pageIndex, this.paginator!.pageSize)
+        }
+      })
   }
 }

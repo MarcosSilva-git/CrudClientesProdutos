@@ -18,7 +18,7 @@ public class RepositoryBase<T>(
         if (page <= 0) page = 1;
 
         var totalItems = _dbSet.Count();
-        var totalPages = totalItems == 0 ? 1 : (totalItems / take) + 1;
+        var totalPages = totalItems == 0 ? 1 : (totalItems / take);
 
         if (totalPages < page)
             page = totalPages;
