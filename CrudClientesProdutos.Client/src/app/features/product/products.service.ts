@@ -14,7 +14,7 @@ export class ProductsService extends BaseService {
 
   constructor(private http : HttpClient) { super() }
 
-  getProducts(take : number = 5, page : number = 0): Observable<PagedResponse<Product>> {
+  get(take : number = 5, page : number = 0): Observable<PagedResponse<Product>> {
     const params = new HttpParams()
     .set('take', take.toString())
     .set('page', (page + 1).toString());
@@ -24,7 +24,19 @@ export class ProductsService extends BaseService {
       .pipe(catchError(this.catchProblemDetailsError));
   }
 
-  deleteProduct(id : number) : Observable<void> {
+  create(product : Omit<Product, "id">) : Observable<Product> {
+    return this.http
+      .post<Product>(`${this.url}`, product)
+      .pipe(catchError(this.catchProblemDetailsError))
+  }
+
+  update(product : Product) : Observable<Product> {
+    return this.http
+      .put<Product>(`${this.url}/${product.id}`, product)
+      .pipe(catchError(this.catchProblemDetailsError))
+  }
+
+  delete(id : number) : Observable<void> {
     return this.http
       .delete<void>(`${this.url}/${id}`)
       .pipe(catchError(this.catchProblemDetailsError))

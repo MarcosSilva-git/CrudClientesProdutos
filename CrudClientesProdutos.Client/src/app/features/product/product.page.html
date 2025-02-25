@@ -1,50 +1,54 @@
-<p>product works!</p>
+<div class="create-button">
+    <button mat-flat-button color="primary" (click)="openDialog()">
+        Criar Produto
+    </button>
+</div>
 
-<p>Primeiro Produto: {{ products?.items?.[0]?.name }}</p>
-
-<div class="mat-elevation-z8">
-    <table mat-table [dataSource]="this.products?.items ?? []">
-        <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef> ID </th>
-            <td mat-cell *matCellDef="let product"> {{ product.id }} </td>
-        </ng-container>
-        
-        <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef> Nome </th>
-            <td mat-cell *matCellDef="let product"> {{ product.name }} </td>
-        </ng-container>
-        
-        <ng-container matColumnDef="price">
-            <th mat-header-cell *matHeaderCellDef> Preço </th>
-            <td mat-cell *matCellDef="let product"> {{ product.price | currency:'BRL' }} </td>
-        </ng-container>
-        
-        <ng-container matColumnDef="stock">
-            <th mat-header-cell *matHeaderCellDef> Estoque </th>
-            <td mat-cell *matCellDef="let product"> {{ product.stock }} </td>
-        </ng-container>
-        
-        <ng-container matColumnDef="actions">
+<table mat-table [dataSource]="this.products?.items ?? []">
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> ID </th>
+        <td mat-cell *matCellDef="let product"> {{ product.id }} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Nome </th>
+        <td mat-cell *matCellDef="let product"> {{ product.name }} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef>   Preço </th>
+        <td mat-cell *matCellDef="let product"> {{ product.price | currency:'BRL' }} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="stock">
+        <th mat-header-cell *matHeaderCellDef> Estoque </th>
+        <td mat-cell *matCellDef="let product"> {{ product.stock }} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Ações </th>
+        
         <td mat-cell *matCellDef="let product">
-            <button mat-icon-button color="warn" (click)="deleteProduct(product)">
-            <mat-icon>delete</mat-icon>
+            <button mat-icon-button color="primary" (click)="openDialog(product)">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button  mat-icon-button color="warn" (click)="deleteProduct(product)">
+                <mat-icon>delete</mat-icon>
             </button>
         </td>
-        </ng-container>
+    </ng-container>
 
-        <thead>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        </thead>
-        <tbody>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </tbody>
-    </table>
+    <thead>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    </thead>
+    <tbody>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </tbody>
+</table>
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-        [pageSize]="5"
-        showFirstLastButtons
-        aria-label="Select page of periodic elements">
-    </mat-paginator>
-</div>
+<mat-paginator [pageSizeOptions]="[5, 10, 20]"
+    [pageSize]="5"
+    showFirstLastButtons
+    aria-label="Select page of periodic elements">
+</mat-paginator>
     

@@ -1,0 +1,8 @@
+.create-button {
+   display: flex;
+   flex-direction: row-reverse;
+}
+
+table {
+   margin-top: 1rem;
+}
