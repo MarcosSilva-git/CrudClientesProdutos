@@ -25,6 +25,8 @@ export class ClientsService extends BaseService {
   }
 
   create(client : Omit<Client, "id">) : Observable<Client> {
+console.log(client)
+
     return this.http
       .post<Client>(`${this.url}`, client)
       .pipe(catchError(this.catchProblemDetailsError))

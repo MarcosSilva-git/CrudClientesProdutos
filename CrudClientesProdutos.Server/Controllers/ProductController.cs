@@ -14,11 +14,11 @@ public class ProductController(IProductService productService) : ApplicationV1Co
     private readonly IProductService _productService = productService;
 
     [HttpGet]
-    public ActionResult<PagedResponseDTO<ProductResponseDTO>> Get(
+    public async Task<ActionResult<PagedResponseDTO<ProductResponseDTO>>> Get(
         [FromQuery] int take = 10,
         [FromQuery] int page = 1)
     {
-        var pagedEntity = _productService.GetPaged(take, page);
+        var pagedEntity = await _productService.GetPagedAsync(take, page);
 
         return Ok(new PagedResponseDTO<ProductResponseDTO>()
         {
@@ -31,9 +31,9 @@ public class ProductController(IProductService productService) : ApplicationV1Co
     }
 
     [HttpPost]
-    public IActionResult Post(ProductCreateUpdateDTO product)
+    public async Task<IActionResult> Post(ProductCreateUpdateDTO product)
     {
-        var result = _productService.Create(product);
+        var result = await _productService.CreateAsync(product);
 
         return result.Match(
             product => Ok(ProductResponseDTO.FromEntity(product)),
@@ -41,9 +41,9 @@ public class ProductController(IProductService productService) : ApplicationV1Co
     }
 
     [HttpPut("{id}")]
-    public IActionResult Put(long id, ProductCreateUpdateDTO product)
+    public async Task<IActionResult> Put(long id, ProductCreateUpdateDTO product)
     {
-        var result = _productService.Update(id, product);
+        var result = await _productService.UpdateAsync(id, product);
 
         return result.Match(
             product => Ok(ProductResponseDTO.FromEntity(product)),
@@ -51,9 +51,9 @@ public class ProductController(IProductService productService) : ApplicationV1Co
     }
 
     [HttpDelete("{id}")]
-    public IActionResult Delete(long id)
+    public async Task<IActionResult> Delete(long id)
     {
-        var result = _productService.Delete(id);
+        var result = await _productService.DeleteAsync(id);
 
         return result.Match(
             _ => NoContent(),

@@ -7,8 +7,8 @@ namespace CrudClientesProdutos.Application.Features.Product;
 
 public interface IProductService
 {
-    IPagedEntity<ProductEntity> GetPaged(int take, int page);
-    Result<ProductEntity, Error> Create(ProductCreateUpdateDTO product);
-    Result<long, Error> Delete(long productId);
-    Result<ProductEntity, Error> Update(long id, ProductCreateUpdateDTO product);
+    Task<IPagedEntity<ProductEntity>> GetPagedAsync(int take, int page);
+    Task<Result<ProductEntity, Error>> CreateAsync(ProductCreateUpdateDTO product);
+    Task<Result<long, Error>> DeleteAsync(long productId);
+    Task<Result<ProductEntity, Error>> UpdateAsync(long id, ProductCreateUpdateDTO product);
 }

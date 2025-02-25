@@ -13,10 +13,10 @@ public class ClientService(
     private readonly IClientRepository _clientRepository = clientRepository;
     private readonly IClientValidator _clientValidator = clientValidator;
 
-    public IPagedEntity<ClientEntity> GetPaged(int take, int page)
-         => _clientRepository.GetPaged(take, page);
+    public async Task<IPagedEntity<ClientEntity>> GetPagedAsync(int take, int page)
+         => await _clientRepository.GetPagedAsync(take, page);
 
-    public Result<ClientEntity, Error> Create(ClientCreateUpdateDTO client)
+    public async Task<Result<ClientEntity, Error>> CreateAsync(ClientCreateUpdateDTO client)
     {
         var validationResult = _clientValidator.Validate(client);
 
@@ -28,17 +28,17 @@ public class ClientService(
             client.Email, 
             client.PhoneNumber);
 
-        return _clientRepository.Create(clientEntity);
+        return await _clientRepository.CreateAsync(clientEntity);
     }
 
-    public Result<ClientEntity, Error> Update(long id, ClientCreateUpdateDTO client)
+    public async Task<Result<ClientEntity, Error>> UpdateAsync(long id, ClientCreateUpdateDTO client)
     {
         var validationResult = _clientValidator.Validate(client);
 
         if (validationResult.IsFailure)
             return validationResult.Error;
 
-        var clientEntity = _clientRepository.Find(id);
+        var clientEntity = await _clientRepository.FindAsync(id);
 
         if (clientEntity is null)
             return ClientErrors.NotFound;
@@ -47,15 +47,15 @@ public class ClientService(
         clientEntity.Email = client.Email;
         clientEntity.PhoneNumber = client.PhoneNumber!;
 
-        return _clientRepository.Update(clientEntity);
+        return await _clientRepository.UpdateAsync(clientEntity);
     }
 
-    public Result<long, Error> Delete(long clientId)
+    public async Task<Result<long, Error>> DeleteAsync(long clientId)
     {
         if (clientId <= 0)
             return ClientErrors.InvalidId(clientId);
 
-        var id = _clientRepository.Delete(clientId);
+        var id = await _clientRepository.DeleteAsync(clientId);
 
         return id is null ? ClientErrors.NotFound : id.Value;
     }

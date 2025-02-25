@@ -117,7 +117,7 @@ public class ProductServiceTests
         _productRepository.Setup(repo => repo.Update(It.IsAny<ProductEntity>())).Returns(existingProduct);
 
         // Act
-        var result = _productService.Update(1, updatedProductDto);
+        var result = _productService.UpdateAsync(1, updatedProductDto);
 
         // Assert
         Assert.True(result.IsSuccess);
@@ -139,7 +139,7 @@ public class ProductServiceTests
             .Returns(Result<ProductCreateUpdateDTO, Error>.Success(updatedProductDto));
 
         // Act
-        var result = _productService.Update(1, updatedProductDto);
+        var result = _productService.UpdateAsync(1, updatedProductDto);
 
         // Assert
         Assert.True(result.IsFailure);

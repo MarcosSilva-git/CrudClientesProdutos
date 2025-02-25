@@ -13,11 +13,11 @@ public class ClientController(IClientService clientService) : ApplicationV1Contr
     private readonly IClientService _clientService = clientService;
 
     [HttpGet]
-    public ActionResult<PagedResponseDTO<ClientResponseDTO>> Get(
+    public async Task<ActionResult<PagedResponseDTO<ClientResponseDTO>>> Get(
         [FromQuery] int take = 10,
         [FromQuery] int page = 1)
     {
-        var pagedEntity = _clientService.GetPaged(take, page);
+        var pagedEntity = await _clientService.GetPagedAsync(take, page);
 
         return Ok(new PagedResponseDTO<ClientResponseDTO>()
         {
@@ -30,9 +30,9 @@ public class ClientController(IClientService clientService) : ApplicationV1Contr
     }
 
     [HttpPost]
-    public IActionResult Post(ClientCreateUpdateDTO client)
+    public async Task<IActionResult> Post(ClientCreateUpdateDTO client)
     {
-        var result = _clientService.Create(client);
+        var result = await _clientService.CreateAsync(client);
 
         return result.Match(
             client => Ok(ClientResponseDTO.FromEntity(client)),
@@ -40,9 +40,9 @@ public class ClientController(IClientService clientService) : ApplicationV1Contr
     }
 
     [HttpPut("{id}")]
-    public IActionResult Put(long id, ClientCreateUpdateDTO client)
+    public async Task<IActionResult> Put(long id, ClientCreateUpdateDTO client)
     {
-        var result = _clientService.Update(id, client);
+        var result = await _clientService.UpdateAsync(id, client);
 
         return result.Match(
             client => Ok(ClientResponseDTO.FromEntity(client)),
@@ -50,9 +50,9 @@ public class ClientController(IClientService clientService) : ApplicationV1Contr
     }
 
     [HttpDelete("{id}")]
-    public IActionResult Delete(long id)
+    public async Task<IActionResult> Delete(long id)
     {
-        var result = _clientService.Delete(id);
+        var result = await _clientService.DeleteAsync(id);
 
         return result.Match(
             id => NoContent(), 

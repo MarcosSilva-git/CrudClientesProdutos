@@ -6,8 +6,8 @@ namespace CrudClientesProdutos.Application.Features.Client;
 
 public interface IClientService
 {
-    IPagedEntity<ClientEntity> GetPaged(int take, int page);
-    Result<ClientEntity, Error> Create(ClientCreateUpdateDTO product);
-    Result<long, Error> Delete(long productId);
-    Result<ClientEntity, Error> Update(long id, ClientCreateUpdateDTO product);
+    Task<IPagedEntity<ClientEntity>> GetPagedAsync(int take, int page);
+    Task<Result<ClientEntity, Error>> CreateAsync(ClientCreateUpdateDTO product);
+    Task<Result<long, Error>> DeleteAsync(long productId);
+    Task<Result<ClientEntity, Error>> UpdateAsync(long id, ClientCreateUpdateDTO product);
 }

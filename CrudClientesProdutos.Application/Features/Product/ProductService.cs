@@ -12,10 +12,10 @@ public class ProductService(
     private readonly IProductRepository _productRepository = productRepository;
     private readonly IProductValidator _productValidator = productValidator;
 
-    public IPagedEntity<ProductEntity> GetPaged(int take, int page)
-         => _productRepository.GetPaged(take, page);
+    public async Task<IPagedEntity<ProductEntity>> GetPagedAsync(int take, int page)
+         => await _productRepository.GetPagedAsync(take, page);
 
-    public Result<ProductEntity, Error> Create(ProductCreateUpdateDTO product)
+    public async Task<Result<ProductEntity, Error>> CreateAsync(ProductCreateUpdateDTO product)
     {
         var result = _productValidator.Validate(product);
 
@@ -27,17 +27,17 @@ public class ProductService(
             product.Price,
             product.Stock);
 
-        return _productRepository.Create(productEntity);
+        return await _productRepository.CreateAsync(productEntity);
     }
 
-    public Result<ProductEntity, Error> Update(long id, ProductCreateUpdateDTO product)
+    public async Task<Result<ProductEntity, Error>> UpdateAsync(long id, ProductCreateUpdateDTO product)
     {
         var result = _productValidator.Validate(product);
 
         if (result.IsFailure)
             return result.Error;
 
-        var productEntity = _productRepository.Find(id);
+        var productEntity = await _productRepository.FindAsync(id);
 
         if (productEntity is null)
             return ProductErrors.NotFound;
@@ -46,15 +46,15 @@ public class ProductService(
         productEntity.Price = product.Price;
         productEntity.Stock = product.Stock;
 
-        return _productRepository.Update(productEntity);
+        return await _productRepository.UpdateAsync(productEntity);
     }
 
-    public Result<long, Error> Delete(long productId)
+    public async Task<Result<long, Error>> DeleteAsync(long productId)
     {
         if (productId <= 0)
             return ProductErrors.InvalidId(productId);
 
-        var id = _productRepository.Delete(productId);
+        var id = await _productRepository.DeleteAsync(productId);
         
         return id is null ? ProductErrors.NotFound : id.Value;
     }

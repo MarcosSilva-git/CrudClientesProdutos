@@ -17,7 +17,7 @@ export interface ClientCreateUpdateDialogData {
 type ClientForm = {
   name: FormControl<string | null>;
   email: FormControl<string | null>;
-  phoneNumber: FormControl<number | null>;
+  phoneNumber: FormControl<string | null>;
   active: FormControl<boolean | null>;
 };
 
@@ -35,7 +35,7 @@ export class ClientCreateUpdateDialogComponent implements OnInit {
 
   clientForm = new FormGroup<ClientForm>({
     name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
-    email: new FormControl(null, [Validators.required, Validators.email]),
+    email: new FormControl(null, [Validators.required, this.validateEmailExtension]),
     phoneNumber: new FormControl(null, [this.validatePhoneNumber]),
     active: new FormControl(true, [Validators.required]),
   });
@@ -48,11 +48,30 @@ export class ClientCreateUpdateDialogComponent implements OnInit {
       this.clientForm.patchValue(this.data.client ?? {})
   }
 
+  validateEmailExtension(control: AbstractControl): ValidationErrors | null {
+    var validEmail = Validators.email(control);
+
+    if (validEmail !== null) {
+      return validEmail
+    }
+
+    if (control.value !== null) {
+      var dotIndex = control.value.toString().split('@')[1].indexOf('.')
+      console.log(dotIndex)
+      if (dotIndex === -1 || control.value.toString().endsWith('.')) {
+        return { 'invalidEmail': 'O email precisa ser válido' }
+      }
+    }
+
+    return null
+  }
+
   validatePhoneNumber(control: AbstractControl): ValidationErrors | null {
     const phone = control.value;
   
+    console.log(phone)
     // Check if the phone number is valid (length should be at least 9)
-    if (phone && phone.toString().length < 9) {
+    if (phone && phone?.toString().length != 11) {
       return { 'invalidPhone': 'Celular inválido' };
     }
   
@@ -91,9 +110,9 @@ export class ClientCreateUpdateDialogComponent implements OnInit {
 
   createClient(clientForm: FormGroup<ClientForm>) {
       const client : Omit<Client, 'id'> = {
-        name: this.clientForm.value.name!,
-        email: this.clientForm.value.email!, 
-        phoneNumber: this.clientForm.value.phoneNumber!, 
+        name: clientForm.value.name!,
+        email: clientForm.value.email!, 
+        phoneNumber: clientForm.value.phoneNumber?.toString(), 
       }
       
       this._clientService
@@ -112,9 +131,9 @@ export class ClientCreateUpdateDialogComponent implements OnInit {
   updateClient(clientForm: FormGroup<ClientForm>) {
     const client : Client = {
       id: this.data.client!.id,
-      name: this.clientForm.value.name!,
-      email: this.clientForm.value.email!, 
-      phoneNumber: this.clientForm.value.phoneNumber!, 
+      name: clientForm.value.name!,
+      email: clientForm.value.email!, 
+      phoneNumber: clientForm.value.phoneNumber?.toString(), 
     }
 
     this._clientService

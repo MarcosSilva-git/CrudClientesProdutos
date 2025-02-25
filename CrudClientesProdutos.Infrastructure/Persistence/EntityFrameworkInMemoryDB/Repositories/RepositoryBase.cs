@@ -10,14 +10,14 @@ public class RepositoryBase<T>(
     protected readonly InMemoryDbContext _context = context;
     protected readonly DbSet<T> _dbSet = context.Set<T>();
 
-    public virtual IPagedEntity<T> GetPaged(int take = 10, int page = 1)
+    public virtual async Task<IPagedEntity<T>> GetPagedAsync(int take = 10, int page = 1)
     {
         if (take <= 0) take = 1;
         if (take > 50) take = 50;
 
         if (page <= 0) page = 1;
 
-        var totalItems = _dbSet.Count();
+        var totalItems = await _dbSet.CountAsync();
 
         int totalPages;
         if (totalItems == 0)
@@ -32,10 +32,10 @@ public class RepositoryBase<T>(
         if (totalPages < page)
             page = totalPages;
 
-        var items =  _dbSet
+        var items = await _dbSet
             .Skip(take * (page - 1))
             .Take(take)
-            .ToList();
+            .ToListAsync();
 
         return new PagedEntity<T>()
         {
@@ -47,35 +47,35 @@ public class RepositoryBase<T>(
         }; 
     }
 
-    public virtual T? Find(long id)
-        => _dbSet.Find(id);
+    public virtual async Task<T?> FindAsync(long id)
+        => await _dbSet.FindAsync(id);
 
-    public virtual T Create(T entity)
+    public virtual async Task<T> CreateAsync(T entity)
     {
-        var newEntity = _dbSet.Add(entity);
-        _context.SaveChanges();
+        var newEntity = await _dbSet.AddAsync(entity);
+        await _context.SaveChangesAsync();
 
         return newEntity.Entity;
     }
 
-    public virtual T Update(T entity)
+    public virtual async Task<T> UpdateAsync(T entity)
     {
         _dbSet.Update(entity);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
 
         return entity;
     }
 
-    public virtual long? Delete(long id)
+    public virtual async Task<long?> DeleteAsync(long id)
     {
-        var entity = _dbSet.Find(id);
+        var entity = await _dbSet.FindAsync(id);
 
         if (entity is null)
             return null;
 
         _dbSet.Remove(entity);
 
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         return entity.Id;
     }
 }

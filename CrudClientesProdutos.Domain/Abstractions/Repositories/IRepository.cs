@@ -2,13 +2,10 @@
 
 public interface IRepository<T> where T : IEntity 
 {
-    IPagedEntity<T> GetPaged(int take = 10, int page = 1);
+    Task<IPagedEntity<T>> GetPagedAsync(int take = 10, int page = 1);
 
-    T? Find(long id);
-
-    T Create(T entity); 
-    
-    T Update(T entity); 
-    
-    long? Delete(long id); 
+    Task<T?> FindAsync(long id);
+    Task<T> CreateAsync(T entity); 
+    Task<T> UpdateAsync(T entity); 
+    Task<long?> DeleteAsync(long id); 
 }
