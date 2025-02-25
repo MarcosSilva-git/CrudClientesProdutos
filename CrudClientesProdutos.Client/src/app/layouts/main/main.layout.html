@@ -1,7 +1,22 @@
-<p>Main Layout works</p>
+<mat-toolbar color="primary">
+    <h2>Crud de Clientes e Produtos</h2>
 
-<mat-toolbar>
-    
+    <span class="spacer"></span>
+
+    <nav>
+        <button mat-button>
+            <a routerLink="produtos">
+                Produtos
+            </a>
+        </button>
+        <button mat-button>
+            <a routerLink="clientes">
+                Clientes
+            </a>
+        </button>
+    </nav>
 </mat-toolbar>
 
-<router-outlet></router-outlet>
+<div class="container">
+    <router-outlet></router-outlet>
+</div>
