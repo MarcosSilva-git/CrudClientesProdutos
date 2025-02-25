@@ -56,20 +56,22 @@ export class ProductPage implements OnInit, AfterViewInit {
   }
 
   updateTable() {
+    this.dataSource.data = this.products!.items
+
     if (this.paginator) {
       this.paginator.length = this.products!.totalItems
     }
-    this.dataSource.data = this.products!.items
   }
 
   getProducts(pageIndex: number = 0, pageSize: number = 5): void {
     console.log(pageIndex, pageSize)
     this._productService.get(pageSize, pageIndex).subscribe({
       next: (response: PagedResponse<Product>) => {
+        console.log(response)
         this.products = response
         this.updateTable()
       },
-      error: erro => console.error('Erro ao carregar produtos:', erro)
+      error: () => alert('Erro ao carregar produtos:')
     });
   }
 
