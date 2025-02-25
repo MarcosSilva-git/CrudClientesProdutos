@@ -4,7 +4,7 @@
     <form [formGroup]="clientForm" (ngSubmit)="submit()" class="dialog-content">
         <mat-form-field appearance="outline">
             <mat-label>Nome</mat-label>
-            <input matInput formControlName="name" placeholder="Ex. Lasanha">
+            <input matInput formControlName="name" placeholder="Ex. Diogo">
             @if (clientForm.get('name')?.invalid) {
                 <mat-error>
                     {{ getErrorMessage('name') }}

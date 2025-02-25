@@ -47,9 +47,6 @@ export class ProductCreateUpdateDialogComponent implements OnInit {
   getErrorMessage(field: string) {
     const control = this.productForm.get(field);
     
-    if (field == 'n') {
-      console.log(control?.value)
-    }
     if (control?.hasError('required')) {
       return 'Obrigatório';
     }

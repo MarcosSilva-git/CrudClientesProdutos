@@ -24,7 +24,7 @@ public class ClientServiceTests
     }
 
     [Fact]
-    public void GetPaged_ShouldReturnClients()
+    public async Task GetPagedAsync_ShouldReturnClients()
     {
         // Arrange
         var clients = new List<ClientEntity> 
@@ -41,11 +41,11 @@ public class ClientServiceTests
             TotalPages = 1
         };
 
-        _clientRepository.Setup(repo => repo.GetPaged(1, 1))
-            .Returns(pagedEntity);
+        _clientRepository.Setup(repo => repo.GetPagedAsync(1, 1))
+            .ReturnsAsync(pagedEntity);
 
         // Act
-        var result = _clientService.GetPaged(1, 1);
+        var result = await _clientService.GetPagedAsync(1, 1);
 
         // Assert
         Assert.NotNull(result);
@@ -53,7 +53,7 @@ public class ClientServiceTests
     }
 
     [Fact]
-    public void Create_InvalidName_ShouldReturnError()
+    public async Task CreateAsync_InvalidName_ShouldReturnError()
     {
         // Arrange
         var client = new ClientCreateUpdateDTO { Name = "Jo", Email = "valid@example.com" };
@@ -63,7 +63,7 @@ public class ClientServiceTests
             .Returns(ClientErrors.InvalidNameSize);
 
         // Act
-        var result = _clientService.Create(client);
+        var result = await _clientService.CreateAsync(client);
 
         // Assert
         Assert.False(result.IsSuccess);
@@ -71,7 +71,7 @@ public class ClientServiceTests
     }
 
     [Fact]
-    public void Create_InvalidEmail_ShouldReturnError()
+    public async Task CreateAsync_InvalidEmail_ShouldReturnError()
     {
         // Arrange
         var client = new ClientCreateUpdateDTO { Name = "Valid Name", Email = "invalidEmail" };
@@ -81,7 +81,7 @@ public class ClientServiceTests
             .Returns(CommomErrors.Email.InvalidEmail(client.Email));
 
         // Act
-        var result = _clientService.Create(client);
+        var result = await _clientService.CreateAsync(client);
 
         // Assert
         Assert.False(result.IsSuccess);
@@ -89,7 +89,7 @@ public class ClientServiceTests
     }
 
     [Fact]
-    public void Create_ValidClient_ShouldCallRepositoryAndReturnEntity()
+    public async Task CreateAsync_ValidClient_ShouldCallRepositoryAndReturnEntity()
     {
         // Arrange
         var clientDto = new ClientCreateUpdateDTO { Name = "Valid Name", Email = "valid@example.com" };
@@ -100,11 +100,11 @@ public class ClientServiceTests
             .Returns(clientDto);
 
         _clientRepository
-            .Setup(repo => repo.Create(It.IsAny<ClientEntity>()))
-            .Returns(clientEntity);
+            .Setup(repo => repo.CreateAsync(It.IsAny<ClientEntity>()))
+            .ReturnsAsync(clientEntity);
 
         // Act
-        var result = _clientService.Create(clientDto);
+        var result = await _clientService.CreateAsync(clientDto);
 
         // Assert
         Assert.True(result.IsSuccess);
@@ -112,7 +112,7 @@ public class ClientServiceTests
     }
 
     [Fact]
-    public void Update_ClientNotFound_ShouldReturnError()
+    public async Task UpdateAsync_ClientNotFound_ShouldReturnError()
     {
         // Arrange
         var clientDto = new ClientCreateUpdateDTO { Name = "Updated Name", Email = "updated@example.com" };
@@ -122,11 +122,11 @@ public class ClientServiceTests
             .Returns(clientDto);
 
         _clientRepository
-            .Setup(repo => repo.Find(It.IsAny<long>()))
-            .Returns((ClientEntity?)null);
+            .Setup(repo => repo.FindAsync(It.IsAny<long>()))
+            .ReturnsAsync((ClientEntity?)null);
 
         // Act
-        var result = _clientService.Update(1, clientDto);
+        var result = await _clientService.UpdateAsync(1, clientDto);
 
         // Assert
         Assert.False(result.IsSuccess);
@@ -134,10 +134,10 @@ public class ClientServiceTests
     }
 
     [Fact]
-    public void Delete_InvalidId_ShouldReturnError()
+    public async Task DeleteAsync_InvalidId_ShouldReturnError()
     {
         // Act
-        var result = _clientService.Delete(0);
+        var result = await _clientService.DeleteAsync(0);
 
         // Assert
         Assert.False(result.IsSuccess);
@@ -145,15 +145,15 @@ public class ClientServiceTests
     }
 
     [Fact]
-    public void Delete_ClientNotFound_ShouldReturnError()
+    public async Task DeleteAsync_ClientNotFound_ShouldReturnError()
     {
         // Arrange
         _clientRepository
-            .Setup(repo => repo.Delete(It.IsAny<long>()))
-            .Returns((long?)null);
+            .Setup(repo => repo.DeleteAsync(It.IsAny<long>()))
+            .ReturnsAsync((long?)null);
 
         // Act
-        var result = _clientService.Delete(1);
+        var result = await _clientService.DeleteAsync(1);
 
         // Assert
         Assert.False(result.IsSuccess);

@@ -11,8 +11,6 @@ export class BaseService {
             errors: error.error?.errors
           };
 
-          console.log(error)
-
         return throwError(() => apiError);
     }
 }

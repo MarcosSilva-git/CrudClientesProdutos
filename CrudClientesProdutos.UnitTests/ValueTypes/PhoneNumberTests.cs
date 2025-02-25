@@ -6,9 +6,8 @@ public class PhoneNumberTests
 {
     private readonly List<string> ValidPhoneNumbers = new List<string>
     {
-        "+55 11 99999-9999",
-        "+5511999999999",
-        "+55 11 999999999",
+        "21982165719",
+        "(21)982165719"
     };
 
     private readonly List<string> InValidPhoneNumbers = new List<string>
@@ -18,6 +17,9 @@ public class PhoneNumberTests
         "55 11 99999-9999",
         "55 11 9999-9999",
         "+55 11 9999999",
+        "+55 11 99999-9999",
+        "+5511999999999",
+        "+55 11 999999999",
     };
 
     [Fact]

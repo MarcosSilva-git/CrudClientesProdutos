@@ -57,7 +57,6 @@ export class ClientCreateUpdateDialogComponent implements OnInit {
 
     if (control.value !== null) {
       var dotIndex = control.value.toString().split('@')[1].indexOf('.')
-      console.log(dotIndex)
       if (dotIndex === -1 || control.value.toString().endsWith('.')) {
         return { 'invalidEmail': 'O email precisa ser válido' }
       }
@@ -69,7 +68,6 @@ export class ClientCreateUpdateDialogComponent implements OnInit {
   validatePhoneNumber(control: AbstractControl): ValidationErrors | null {
     const phone = control.value;
   
-    console.log(phone)
     // Check if the phone number is valid (length should be at least 9)
     if (phone && phone?.toString().length != 11) {
       return { 'invalidPhone': 'Celular inválido' };
@@ -81,9 +79,6 @@ export class ClientCreateUpdateDialogComponent implements OnInit {
   getErrorMessage(field: string) : string {
     const control = this.clientForm.get(field);
     
-    if (field == 'n') {
-      console.log(control?.value)
-    }
     if (control?.hasError('required')) {
       return 'Obrigatório';
     }

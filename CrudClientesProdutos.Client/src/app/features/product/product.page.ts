@@ -29,7 +29,6 @@ export class ProductPage implements OnInit, AfterViewInit {
   readonly dialog = inject(MatDialog);
 
   openDialog(product?: Product): void {
-    console.log(product)
     const dialogRef = this.dialog.open<ProductCreateUpdateDialogComponent, ProductCreateUpdateDialogData>(
       ProductCreateUpdateDialogComponent, {
       data: {
@@ -64,10 +63,8 @@ export class ProductPage implements OnInit, AfterViewInit {
   }
 
   getProducts(pageIndex: number = 0, pageSize: number = 5): void {
-    console.log(pageIndex, pageSize)
     this._productService.get(pageSize, pageIndex).subscribe({
       next: (response: PagedResponse<Product>) => {
-        console.log(response)
         this.products = response
         this.updateTable()
       },

@@ -26,10 +26,9 @@
     </ng-container>
 
     <ng-container matColumnDef="active">
-        <th mat-header-cell *matHeaderCellDef class="field">   Celular </th>
-        <td mat-cell *matCellDef="let client" class="field"> {{ client.active }} </td>
+        <th mat-header-cell *matHeaderCellDef class="field"> Ativo </th>
+        <td mat-cell *matCellDef="let client" class="field"> {{ client.active ? "Sim" : "Não" }} </td>
     </ng-container>
-    
     
     <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef class="actions"></th>

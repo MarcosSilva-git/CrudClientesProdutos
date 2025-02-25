@@ -24,7 +24,7 @@ public class ProductServiceTests
     }
 
     [Fact]
-    public void GetPaged_ShouldReturnProducts()
+    public async Task GetPagedAsync_ShouldReturnProducts()
     {
         // Arrange
         var products = new List<ProductEntity> 
@@ -42,11 +42,11 @@ public class ProductServiceTests
         };
 
         _productRepository
-            .Setup(repo => repo.GetPaged(1, 1))
-            .Returns(pagedEntity);
+            .Setup(repo => repo.GetPagedAsync(1, 1))
+            .ReturnsAsync(pagedEntity);
 
         // Act
-        var result = _productService.GetPaged(1, 1);
+        var result = await _productService.GetPagedAsync(1, 1);
 
         // Assert
         Assert.NotNull(result);
@@ -54,7 +54,7 @@ public class ProductServiceTests
     }
 
     [Fact]
-    public void Create_WithValidProduct_ShouldReturnProduct()
+    public async Task CreateAsync_WithValidProduct_ShouldReturnProduct()
     {
         // Arrange
         var productDto = new ProductCreateUpdateDTO
@@ -70,11 +70,11 @@ public class ProductServiceTests
             .Returns(Result<ProductCreateUpdateDTO, Error>.Success(productDto));
 
         _productRepository.Setup(repo => repo
-            .Create(It.IsAny<ProductEntity>()))
-            .Returns(productEntity);
+            .CreateAsync(It.IsAny<ProductEntity>()))
+            .ReturnsAsync(productEntity);
 
         // Act
-        var result = _productService.Create(productDto);
+        var result = await _productService.CreateAsync(productDto);
 
         // Assert
         Assert.True(result.IsSuccess);
@@ -82,14 +82,14 @@ public class ProductServiceTests
     }
 
     [Fact]
-    public void Create_WithInvalidPrice_ShouldReturnError()
+    public async Task CreateAsync_WithInvalidPrice_ShouldReturnError()
     {
         // Arrange
         var productDto = new ProductCreateUpdateDTO { Name = "Smartphone", Price = 0, Stock = 20 };
         _productValidator.Setup(validator => validator.Validate(productDto)).Returns(ProductErrors.InvalidPrice);
 
         // Act
-        var result = _productService.Create(productDto);
+        var result = await _productService.CreateAsync(productDto);
 
         // Assert
         Assert.True(result.IsFailure);
@@ -97,7 +97,7 @@ public class ProductServiceTests
     }
 
     [Fact]
-    public void Update_WithValidProduct_ShouldReturnUpdatedProduct()
+    public async Task UpdateAsync_WithValidProduct_ShouldReturnUpdatedProduct()
     {
         // Arrange
         var existingProduct = new ProductEntity("Tablet", 600, 15);
@@ -113,11 +113,13 @@ public class ProductServiceTests
             .Validate(updatedProductDto))
             .Returns(Result<ProductCreateUpdateDTO, Error>.Success(updatedProductDto));
 
-        _productRepository.Setup(repo => repo.Find(1)).Returns(existingProduct);
-        _productRepository.Setup(repo => repo.Update(It.IsAny<ProductEntity>())).Returns(existingProduct);
+        _productRepository.Setup(repo => repo.FindAsync(1))
+            .ReturnsAsync(existingProduct);
+        _productRepository.Setup(repo => repo.UpdateAsync(It.IsAny<ProductEntity>()))
+            .ReturnsAsync(existingProduct);
 
         // Act
-        var result = _productService.UpdateAsync(1, updatedProductDto);
+        var result = await _productService.UpdateAsync(1, updatedProductDto);
 
         // Assert
         Assert.True(result.IsSuccess);
@@ -125,21 +127,21 @@ public class ProductServiceTests
     }
 
     [Fact]
-    public void Update_WithNonExistentProduct_ShouldReturnNotFound()
+    public async Task UpdateAsync_WithNonExistentProduct_ShouldReturnNotFound()
     {
         // Arrange
         var updatedProductDto = new ProductCreateUpdateDTO { Name = "Tablet Pro", Price = 700, Stock = 12 };
 
         _productRepository
-            .Setup(repo => repo.Find(1))
-            .Returns((ProductEntity?)null);
+            .Setup(repo => repo.FindAsync(1))
+            .ReturnsAsync((ProductEntity?)null);
 
         _productValidator
             .Setup(validator => validator.Validate(updatedProductDto))
             .Returns(Result<ProductCreateUpdateDTO, Error>.Success(updatedProductDto));
 
         // Act
-        var result = _productService.UpdateAsync(1, updatedProductDto);
+        var result = await _productService.UpdateAsync(1, updatedProductDto);
 
         // Assert
         Assert.True(result.IsFailure);
@@ -147,13 +149,13 @@ public class ProductServiceTests
     }
 
     [Fact]
-    public void Delete_WithValidId_ShouldReturnDeletedId()
+    public async Task DeleteAsync_WithValidId_ShouldReturnDeletedId()
     {
         // Arrange
-        _productRepository.Setup(repo => repo.Delete(1)).Returns(1);
+        _productRepository.Setup(repo => repo.DeleteAsync(1)).ReturnsAsync(1);
 
         // Act
-        var result = _productService.Delete(1);
+        var result = await _productService.DeleteAsync(1);
 
         // Assert
         Assert.True(result.IsSuccess);
@@ -161,10 +163,10 @@ public class ProductServiceTests
     }
 
     [Fact]
-    public void Delete_WithInvalidId_ShouldReturnError()
+    public async Task DeleteAsync_WithInvalidId_ShouldReturnError()
     {
         // Act
-        var result = _productService.Delete(0);
+        var result = await _productService.DeleteAsync(0);
 
         // Assert
         Assert.True(result.IsFailure);

@@ -29,7 +29,6 @@ export class ClientPage implements OnInit, AfterViewInit {
   readonly dialog = inject(MatDialog);
 
   openDialog(client?: Client): void {
-    console.log(client)
     const dialogRef = this.dialog.open<ClientCreateUpdateDialogComponent, ClientCreateUpdateDialogData>(
       ClientCreateUpdateDialogComponent, {
       data: {
@@ -64,10 +63,8 @@ export class ClientPage implements OnInit, AfterViewInit {
   }
 
   getClients(pageIndex: number = 0, pageSize: number = 5): void {
-    console.log(pageIndex, pageSize)
     this._clientService.get(pageSize, pageIndex).subscribe({
       next: (response: PagedResponse<Client>) => {
-        console.log(response)
         this.products = response
         this.updateTable()
       },

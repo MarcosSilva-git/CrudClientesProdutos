@@ -26,7 +26,8 @@ public class ClientService(
         var clientEntity = new ClientEntity(
             client.Name, 
             client.Email, 
-            client.PhoneNumber);
+            client.PhoneNumber,
+            client.Active);
 
         return await _clientRepository.CreateAsync(clientEntity);
     }
@@ -45,7 +46,10 @@ public class ClientService(
 
         clientEntity.Name = client.Name;
         clientEntity.Email = client.Email;
-        clientEntity.PhoneNumber = client.PhoneNumber!;
+        clientEntity.Active = client.Active;
+        clientEntity.PhoneNumber = client.PhoneNumber is null 
+            ? (PhoneNumberType?)null 
+            : new PhoneNumberType(client.PhoneNumber);
 
         return await _clientRepository.UpdateAsync(clientEntity);
     }
