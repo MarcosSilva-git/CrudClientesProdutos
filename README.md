@@ -4,11 +4,12 @@ Este projeto é uma aplicação web que integra uma API desenvolvida em ASP.NET 
 
 ## Estrutura do Projeto
 
-- **CrudClientesProdutos.Application**: Contém a lógica de aplicação, incluindo casos de uso e serviços.
-- **CrudClientesProdutos.Client**: Abriga a interface do usuário desenvolvida em Angular.
+
 - **CrudClientesProdutos.Domain**: Define as entidades de domínio e interfaces.
+- **CrudClientesProdutos.Application**: Contém a lógica de aplicação, incluindo casos de uso e serviços.
 - **CrudClientesProdutos.Infrastructure**: Implementa detalhes de infraestrutura como a persistëncia das informaçöes no banco de dados.
 - **CrudClientesProdutos.API**: Contém a API desenvolvida em ASP.NET Core.
+- **CrudClientesProdutos.Client**: Abriga a interface do usuário desenvolvida em Angular.
 - **CrudClientesProdutos.UnitTests**: Inclui testes unitários para garantir a qualidade do código.
 
 ## Pré-requisitos
