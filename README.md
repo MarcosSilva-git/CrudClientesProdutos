@@ -9,7 +9,7 @@ A solução está organizada nos seguintes diretórios:
 - **CrudClientesProdutos.Application**: Contém a lógica de aplicação, incluindo casos de uso e serviços.
 - **CrudClientesProdutos.Client**: Abriga a interface do usuário desenvolvida em Angular.
 - **CrudClientesProdutos.Domain**: Define as entidades de domínio e interfaces.
-- **CrudClientesProdutos.Infrastructure**: Implementa detalhes de infraestrutura, como acesso a dados e serviços externos.
+- **CrudClientesProdutos.Infrastructure**: Implementa detalhes de infraestrutura como a persistëncia das informaçöes no banco de dados.
 - **CrudClientesProdutos.API**: Contém a API desenvolvida em ASP.NET Core.
 - **CrudClientesProdutos.UnitTests**: Inclui testes unitários para garantir a qualidade do código.
 
