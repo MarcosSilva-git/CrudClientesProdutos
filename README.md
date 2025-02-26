@@ -46,6 +46,7 @@ Siga os passos abaixo para configurar e executar a aplicação:
 
    ```bash
    cd ..
+   dotnet build
    dotnet run --project .\CrudClientesProdutos.API\CrudClientesProdutos.API.csproj
    ```
 
