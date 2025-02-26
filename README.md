@@ -50,7 +50,13 @@ Siga os passos abaixo para configurar e executar a aplicação:
    dotnet run --project .\CrudClientesProdutos.API\CrudClientesProdutos.API.csproj
    ```
 
-   Isso iniciará a API e servirá os arquivos do frontend Angular. Por padrão, a aplicação estará disponível em `https://localhost:5001/`.
+   Esse comando vai inicializar a API e abrirá um novo terminal que vai inicializar o angular.
+
+   API: `https://localhost:7163/swagger`.
+   Angular: `https://localhost:53857/`.
+   
+
+   `https://localhost:5001/`.
 
 ## Executando Testes
 
