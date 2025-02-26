@@ -52,11 +52,9 @@ Siga os passos abaixo para configurar e executar a aplicação:
 
    Esse comando vai inicializar a API e abrirá um novo terminal que vai inicializar o angular.
 
-   API: `https://localhost:7163/swagger`.
-   Angular: `https://localhost:53857/`.
-   
+   - API: `https://localhost:7163/swagger`.
+   - Angular: `https://localhost:53857/`.
 
-   `https://localhost:5001/`.
 
 ## Executando Testes
 
