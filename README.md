@@ -21,44 +21,6 @@ Antes de executar a aplicação, certifique-se de que os seguintes componentes e
 - [Node.js](https://nodejs.org/) (que inclui o npm)
 - [Angular CLI](https://angular.io/cli)
 
-### Instalando o .NET SDK
-
-Para instalar o .NET SDK, siga as instruções específicas para o seu sistema operacional:
-
-- **Windows**:
-  1. Acesse a [página de download do .NET](https://dotnet.microsoft.com/download).
-  2. Baixe o instalador para Windows.
-  3. Execute o instalador e siga as instruções na tela.
-
-- **macOS**:
-  1. Acesse a [página de download do .NET](https://dotnet.microsoft.com/download).
-  2. Baixe o instalador para macOS.
-  3. Execute o instalador e siga as instruções na tela.
-
-- **Linux**:
-  1. Acesse a [documentação oficial do .NET para Linux](https://learn.microsoft.com/en-us/dotnet/core/install/linux).
-  2. Siga as instruções específicas para a sua distribuição Linux.
-
-Após a instalação, verifique se o .NET CLI está disponível executando:
-
-```bash
-dotnet --version
-```
-
-### Instalando o Angular CLI
-
-O Angular CLI é necessário para gerenciar o frontend da aplicação. Para instalá-lo globalmente, execute:
-
-```bash
-npm install -g @angular/cli
-```
-
-Verifique a instalação com:
-
-```bash
-ng version
-```
-
 ## Configuração do Projeto
 
 Siga os passos abaixo para configurar e executar a aplicação:
