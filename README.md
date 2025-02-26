@@ -32,13 +32,7 @@ Siga os passos abaixo para configurar e executar a aplicação:
    cd CrudClientesProdutos
    ```
 
-2. **Restaure as dependências do .NET**:
-
-   ```bash
-   dotnet restore
-   ```
-
-3. **Instale as dependências do Angular**:
+   2. **Instale as dependências do Angular**:
 
    Navegue até o diretório do cliente Angular e instale as dependências:
 
@@ -47,17 +41,7 @@ Siga os passos abaixo para configurar e executar a aplicação:
    npm install
    ```
 
-4. **Compile a aplicação Angular**:
-
-   Ainda no diretório `CrudClientesProdutos.Client`, execute:
-
-   ```bash
-   ng build
-   ```
-
-   Isso gerará os arquivos estáticos do Angular no diretório `dist/`.
-
-5. **Execute a API ASP.NET Core**:
+3. **Execute a API ASP.NET Core**:
 
    Navegue de volta para o diretório raiz do projeto e execute:
 
