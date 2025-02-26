@@ -27,7 +27,7 @@ public record struct EmailType
         if (TryParse(value, out var email))
             return email!.Value;
 
-        throw new ArgumentException(
+        throw new DomainException(
             CommomErrors.Email.InvalidEmail(value).Description, 
             nameof(value));
     }

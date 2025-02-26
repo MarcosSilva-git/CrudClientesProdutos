@@ -11,12 +11,6 @@ internal class ClientEntityConfiguration : IEntityTypeConfiguration<ClientEntity
     {
         builder
             .Property(p => p.Name)
-        .HasMaxLength(100);
-
-        builder
-            .Property(c => c.Email)
-            .HasConversion(
-                email => email.ToString(),
-                value => EmailType.Parse(value));
+            .HasMaxLength(100);
     }
 }

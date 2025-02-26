@@ -29,7 +29,7 @@ public class ClientServiceTests
         // Arrange
         var clients = new List<ClientEntity> 
         { 
-            new ClientEntity("john Doe", "john@example.com", null)
+            new ClientEntity("john Doe", "john@example.com", null, true)
         };
 
         var pagedEntity = new FakePagedEntity<ClientEntity>
@@ -93,7 +93,7 @@ public class ClientServiceTests
     {
         // Arrange
         var clientDto = new ClientCreateUpdateDTO { Name = "Valid Name", Email = "valid@example.com" };
-        var clientEntity = new ClientEntity("Valid Name", "valid@exemple.com", null);
+        var clientEntity = new ClientEntity("Valid Name", "valid@exemple.com", null, true);
 
         _clientValidator
             .Setup(validator => validator.Validate(clientDto))

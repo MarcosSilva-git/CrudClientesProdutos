@@ -1,4 +1,5 @@
 ﻿using CrudClientesProdutos.Domain.ValueTypes;
+using CrudClientesProdutos.Domain;
 
 namespace CrudClientesProdutos.UnitTests.ValueTypes;
 
@@ -36,7 +37,7 @@ public class EmailTests
     {
         foreach (var phoneNumber in InValidEmails)
         {
-            Assert.Throws<ArgumentException>(() => EmailType.Parse(phoneNumber));
+            Assert.Throws<DomainException>(() => EmailType.Parse(phoneNumber));
         }
     }
 }

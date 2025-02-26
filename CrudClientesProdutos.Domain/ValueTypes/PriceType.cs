@@ -7,7 +7,7 @@ public struct PriceType
     public PriceType(decimal value)
     {
         if (value <= 0)
-            throw new ArgumentException("The value must be greater than zero.", nameof(value));
+            throw new DomainException("The value must be greater than zero.", nameof(value));
 
         _value = value;
     }
