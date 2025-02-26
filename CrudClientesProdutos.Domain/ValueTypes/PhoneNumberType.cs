@@ -33,7 +33,7 @@ public record struct PhoneNumberType
             return phoneNumber!.Value;
         }
 
-        throw new ArgumentException(
+        throw new DomainException(
             CommomErrors.PhoneNumber.InvalidPhoneNumber(value).Description, 
             nameof(value));
     }
