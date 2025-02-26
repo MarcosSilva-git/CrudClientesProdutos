@@ -10,7 +10,7 @@ A solução está organizada nos seguintes diretórios:
 - **CrudClientesProdutos.Client**: Abriga a interface do usuário desenvolvida em Angular.
 - **CrudClientesProdutos.Domain**: Define as entidades de domínio e interfaces.
 - **CrudClientesProdutos.Infrastructure**: Implementa detalhes de infraestrutura, como acesso a dados e serviços externos.
-- **CrudClientesProdutos.Server**: Contém a API desenvolvida em ASP.NET Core.
+- **CrudClientesProdutos.API**: Contém a API desenvolvida em ASP.NET Core.
 - **CrudClientesProdutos.UnitTests**: Inclui testes unitários para garantir a qualidade do código.
 
 ## Pré-requisitos
@@ -47,7 +47,7 @@ Siga os passos abaixo para configurar e executar a aplicação:
 
    ```bash
    cd ..
-   dotnet run --project .\CrudClientesProdutos.Server\CrudClientesProdutos.Server.csproj
+   dotnet run --project .\CrudClientesProdutos.API\CrudClientesProdutos.API.csproj
    ```
 
    Isso iniciará a API e servirá os arquivos do frontend Angular. Por padrão, a aplicação estará disponível em `https://localhost:5001/`.
