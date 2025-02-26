@@ -2,7 +2,8 @@
 using CrudClientesProdutos.Application.Features.Product;
 using CrudClientesProdutos.Domain.Features.Client;
 using CrudClientesProdutos.Domain.Features.Product;
-using CrudClientesProdutos.Infrastructure.Persistence.EntityFrameworkInMemoryDB.Repositories;
+using CrudClientesProdutos.Infrastructure.Persistence.EntityFrameworkInMemoryDB.Features.Client;
+using CrudClientesProdutos.Infrastructure.Persistence.EntityFrameworkInMemoryDB.Features.Product;
 
 namespace CrudClientesProdutos.Server.Configurations;
 

@@ -3,7 +3,7 @@ using CrudClientesProdutos.Domain.ValueTypes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CrudClientesProdutos.Infrastructure.Persistence.EntityFrameworkInMemoryDB.Configurations;
+namespace CrudClientesProdutos.Infrastructure.Persistence.EntityFrameworkInMemoryDB.Features.Client;
 
 internal class ClientEntityConfiguration : IEntityTypeConfiguration<ClientEntity>
 {

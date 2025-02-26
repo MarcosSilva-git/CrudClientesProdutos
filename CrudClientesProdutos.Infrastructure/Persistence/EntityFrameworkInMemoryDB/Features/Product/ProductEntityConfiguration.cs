@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CrudClientesProdutos.Infrastructure.Persistence.EntityFrameworkInMemoryDB.Configurations;
+namespace CrudClientesProdutos.Infrastructure.Persistence.EntityFrameworkInMemoryDB.Features.Product;
 
 internal class ProductEntityConfiguration : IEntityTypeConfiguration<ProductEntity>
 {
