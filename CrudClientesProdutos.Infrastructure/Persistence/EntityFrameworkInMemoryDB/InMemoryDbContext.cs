@@ -1,6 +1,7 @@
 ﻿using CrudClientesProdutos.Domain.Features.Client;
 using CrudClientesProdutos.Domain.Features.Product;
-using CrudClientesProdutos.Infrastructure.Persistence.EntityFrameworkInMemoryDB.Configurations;
+using CrudClientesProdutos.Infrastructure.Persistence.EntityFrameworkInMemoryDB.Features.Client;
+using CrudClientesProdutos.Infrastructure.Persistence.EntityFrameworkInMemoryDB.Features.Product;
 using Microsoft.EntityFrameworkCore;
 
 namespace CrudClientesProdutos.Infrastructure.Persistence.EntityFrameworkInMemoryDB;

@@ -1,4 +1,5 @@
 ﻿using CrudClientesProdutos.Domain.Features.Product;
+using CrudClientesProdutos.Domain.ValueTypes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -10,6 +11,6 @@ internal class ProductEntityConfiguration : IEntityTypeConfiguration<ProductEnti
     {
         builder
             .Property(p => p.Name)
-            .HasMaxLength(100);
+            .HasMaxLength(NameType.DefaultMaxLength);
     }
 }
