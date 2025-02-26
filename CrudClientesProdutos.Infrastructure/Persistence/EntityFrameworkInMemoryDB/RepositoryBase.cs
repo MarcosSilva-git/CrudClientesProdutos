@@ -2,7 +2,7 @@
 using CrudClientesProdutos.Domain.Abstractions.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace CrudClientesProdutos.Infrastructure.Persistence.EntityFrameworkInMemoryDB.Repositories;
+namespace CrudClientesProdutos.Infrastructure.Persistence.EntityFrameworkInMemoryDB;
 
 public class RepositoryBase<T>(
     InMemoryDbContext context) : IRepository<T> where T : class, IEntity

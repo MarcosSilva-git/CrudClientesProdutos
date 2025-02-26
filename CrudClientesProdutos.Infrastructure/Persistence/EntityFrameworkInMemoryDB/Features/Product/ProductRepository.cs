@@ -1,5 +1,4 @@
 ﻿using CrudClientesProdutos.Domain.Features.Product;
-using CrudClientesProdutos.Infrastructure.Persistence.EntityFrameworkInMemoryDB.Repositories;
 
 namespace CrudClientesProdutos.Infrastructure.Persistence.EntityFrameworkInMemoryDB.Features.Product;
 
