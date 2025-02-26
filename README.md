@@ -1,3 +1,5 @@
+# CrudClientesProdutos
+
 Este projeto é uma aplicação web que integra uma API desenvolvida em ASP.NET Core com um frontend em Angular. A aplicação permite gerenciar clientes e produtos, oferecendo funcionalidades de CRUD (Create, Read, Update, Delete) para ambos os módulos.
 
 ## Estrutura do Projeto
