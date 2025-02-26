@@ -1,4 +1,5 @@
-﻿using CrudClientesProdutos.Domain.ValueTypes;
+﻿using CrudClientesProdutos.Domain;
+using CrudClientesProdutos.Domain.ValueTypes;
 
 namespace CrudClientesProdutos.UnitTests.ValueTypes;
 
@@ -37,7 +38,7 @@ public class PhoneNumberTests
     {
         foreach (var phoneNumber in InValidPhoneNumbers)
         {
-            Assert.Throws<ArgumentException>(() => PhoneNumberType.Parse(phoneNumber));
+            Assert.Throws<DomainException>(() => PhoneNumberType.Parse(phoneNumber));
         }
     }
 }

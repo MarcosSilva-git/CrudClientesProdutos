@@ -6,8 +6,8 @@ public record struct StockType
 
     public StockType(int value)
     {
-        if (value < 1)
-            throw new DomainException("The stock value must be at least 1.", nameof(value));
+        if (value < 0)
+            throw new DomainException("The stock value must be at least 0.", nameof(value));
 
         _value = value;
     }

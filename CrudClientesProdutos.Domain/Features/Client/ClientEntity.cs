@@ -12,7 +12,12 @@ public class ClientEntity : IEntity
 
     private ClientEntity() { }
 
-    public ClientEntity(string name, string email, string? phoneNumber, bool active)
+    public ClientEntity(
+        NameType name, 
+        EmailType email, 
+        PhoneNumberType? 
+        phoneNumber, 
+        bool active)
     {
         Name = name;
         Email = email;
@@ -20,3 +25,4 @@ public class ClientEntity : IEntity
         Active = active;
     }
 }
+

@@ -1,6 +1,6 @@
 ﻿namespace CrudClientesProdutos.Domain.ValueTypes;
 
-public readonly record struct NameType
+public struct NameType
 {
     public const int DefaultMinLength = 3;
     public const int DefaultMaxLength = 100;

@@ -33,7 +33,7 @@ export class ProductCreateUpdateDialogComponent implements OnInit {
   productForm = new FormGroup<ProductForm>({
     name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
     price: new FormControl(null, [Validators.required, Validators.min(0.01)]),
-    stock: new FormControl(null, [Validators.required, Validators.min(1)])
+    stock: new FormControl(null, [Validators.required, Validators.min(0)])
   });
 
   onNoClick(): void {
@@ -57,7 +57,7 @@ export class ProductCreateUpdateDialogComponent implements OnInit {
       return `O ${field} deve ter no máximo 100 caracteres`;
     }
     if (control?.hasError('min')) {
-      return field === 'price' ? 'O preço deve ser maior que 0' : 'O estoque deve ser maior que 0';
+      return field === 'price' ? 'O preço deve ser maior que 0' : 'O estoque deve ser no mínimo 0';
     }
     return '';
   }

@@ -25,8 +25,10 @@ public class ClientService(
 
         var clientEntity = new ClientEntity(
             client.Name, 
-            client.Email, 
-            client.PhoneNumber,
+            client.Email,
+            client.PhoneNumber is null
+                ? (PhoneNumberType?)null
+                : new PhoneNumberType(client.PhoneNumber),
             client.Active);
 
         return await _clientRepository.CreateAsync(clientEntity);
